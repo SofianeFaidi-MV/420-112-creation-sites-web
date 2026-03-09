@@ -4,32 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>420-112 — Création de sites Web</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github-dark.min.css">
   <style>
     :root {
-      --bg: #0f1115;
-      --panel: #161a22;
-      --panel-2: #1d2330;
-      --text: #eef2ff;
-      --muted: #a8b0c5;
-      --line: #2a3242;
-      --accent: #4da3ff;
-      --accent-2: #7cc4ff;
-      --success: #3ddc97;
-      --warning: #ffcc66;
-      --code-bg: #0b0e14;
-      --chip: #20293a;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --bg: #0b0f16;
+      --bg-2: #111723;
+      --panel: #121927;
+      --panel-2: #182132;
+      --panel-3: #1d2940;
+      --text: #ecf2ff;
+      --muted: #a9b4ca;
+      --line: #283246;
+      --line-soft: #202a3b;
+      --accent: #56a8ff;
+      --accent-2: #8bcbff;
+      --success: #42d392;
+      --warning: #ffcd70;
+      --danger: #ff7c7c;
+      --code: #0a0f17;
       --radius: 18px;
-      --sidebar-width: 300px;
-      --content-width: 1120px;
+      --radius-lg: 24px;
+      --shadow: 0 14px 40px rgba(0,0,0,.35);
+      --sidebar-width: 310px;
+      --container: 1180px;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #0d1016 0%, #11151d 100%);
+      font-family: 'Inter', system-ui, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(86,168,255,.08), transparent 28%),
+        linear-gradient(180deg, #0b0f16, #111723);
       color: var(--text);
       min-height: 100vh;
       display: grid;
@@ -38,46 +48,47 @@
 
     a { color: var(--accent-2); text-decoration: none; }
     a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
 
     .sidebar {
       position: sticky;
       top: 0;
       height: 100vh;
       overflow: auto;
-      background: rgba(13,17,23,.94);
+      background: rgba(10,14,21,.96);
       border-right: 1px solid var(--line);
-      padding: 18px 16px 26px;
-      backdrop-filter: blur(12px);
+      padding: 18px 16px 28px;
+      backdrop-filter: blur(14px);
+      z-index: 30;
     }
 
     .brand {
       display: flex;
-      align-items: center;
       gap: 12px;
-      margin-bottom: 18px;
-      padding: 8px 10px;
-      border-radius: 14px;
-      background: linear-gradient(180deg, rgba(77,163,255,.12), rgba(77,163,255,.04));
-      border: 1px solid rgba(77,163,255,.18);
+      align-items: center;
+      background: linear-gradient(180deg, rgba(86,168,255,.12), rgba(86,168,255,.04));
+      border: 1px solid rgba(86,168,255,.16);
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 14px;
     }
 
-    .brand-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, #0e223f, #1c4e8e);
-      color: white;
-      font-size: 20px;
+      background: linear-gradient(135deg, #16345d, #2d7fe5);
       box-shadow: var(--shadow);
+      font-size: 22px;
     }
 
     .brand h1 {
       margin: 0;
       font-size: 1rem;
       line-height: 1.2;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .brand p {
@@ -86,61 +97,59 @@
       font-size: .84rem;
     }
 
-    .search-wrap {
+    .search-box {
       position: sticky;
       top: 0;
-      z-index: 5;
-      background: rgba(13,17,23,.94);
       padding-bottom: 10px;
+      background: rgba(10,14,21,.96);
+      z-index: 2;
     }
 
-    .search {
+    .search-box input {
       width: 100%;
       padding: 12px 14px;
       border-radius: 14px;
       border: 1px solid var(--line);
-      background: #101521;
+      background: #0f1520;
       color: var(--text);
       outline: none;
+      font-size: .95rem;
     }
 
-    .search:focus {
+    .search-box input:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(77,163,255,.18);
+      box-shadow: 0 0 0 3px rgba(86,168,255,.16);
     }
 
-    .home-link,
-    .nav-link {
-      display: block;
-      padding: 10px 12px;
-      border-radius: 12px;
-      color: #d8def2;
-      margin: 2px 0;
-      border: 1px solid transparent;
-    }
-
-    .home-link:hover,
-    .nav-link:hover,
-    .nav-link.active {
-      background: #171d2a;
-      border-color: #273247;
-      text-decoration: none;
-    }
-
-    .nav-group {
+    .nav-section {
       margin-top: 18px;
+      border-top: 1px solid var(--line-soft);
       padding-top: 12px;
-      border-top: 1px solid var(--line);
     }
 
     .nav-title {
+      padding: 0 12px;
       margin: 0 0 8px;
       color: var(--muted);
-      font-size: .78rem;
-      font-weight: 700;
+      font-size: .77rem;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: .08em;
-      padding: 0 12px;
+    }
+
+    .nav-link, .home-link {
+      display: block;
+      padding: 10px 12px;
+      margin: 2px 0;
+      border-radius: 12px;
+      color: #d9e5fb;
+      border: 1px solid transparent;
+    }
+
+    .nav-link:hover, .home-link:hover, .nav-link.active {
+      background: #161f2d;
+      border-color: #28364e;
+      text-decoration: none;
     }
 
     .main {
@@ -150,24 +159,38 @@
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 22px;
+      background: rgba(11,15,22,.86);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar-left {
+      min-width: 0;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font-size: .9rem;
+      margin: 0 0 4px;
+    }
+
+    .topbar h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topbar-actions {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 22px;
-      background: rgba(15,17,21,.84);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(12px);
-    }
-
-    .topbar .crumbs {
-      color: var(--muted);
-      font-size: .95rem;
-    }
-
-    .topbar .actions {
-      display: flex;
       gap: 10px;
       flex-wrap: wrap;
     }
@@ -176,86 +199,131 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      border: 1px solid #2d3a52;
-      background: #182030;
-      color: var(--text);
       padding: 10px 14px;
       border-radius: 12px;
+      border: 1px solid #2f3b53;
+      background: #182131;
+      color: var(--text);
+      font-weight: 700;
       cursor: pointer;
-      font-weight: 600;
     }
 
-    .btn:hover { background: #20293b; }
+    .btn:hover { background: #202b3d; }
     .btn.primary {
-      background: linear-gradient(180deg, #1d5fb8, #174f9d);
-      border-color: #347ce3;
+      background: linear-gradient(180deg, #2575d8, #1b5eb1);
+      border-color: #3b8ef4;
     }
 
     .container {
-      max-width: var(--content-width);
-      padding: 34px 28px 80px;
+      max-width: var(--container);
       margin: 0 auto;
+      padding: 28px 24px 70px;
     }
 
     .hero {
-      padding: 18px 0 10px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 22px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at top right, rgba(86,168,255,.14), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      padding: 34px 30px;
+      box-shadow: var(--shadow);
     }
 
-    .hero h2 {
-      margin: 0 0 10px;
-      font-size: clamp(2rem, 4vw, 4rem);
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -80px auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(86,168,255,.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      line-height: .98;
       font-weight: 300;
-      letter-spacing: .02em;
+      letter-spacing: .03em;
       text-transform: uppercase;
     }
 
     .hero p {
+      max-width: 860px;
       margin: 0;
-      max-width: 820px;
       color: var(--muted);
-      line-height: 1.7;
-      font-size: 1.03rem;
+      line-height: 1.8;
+      font-size: 1.04rem;
     }
 
-    .grid {
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(86,168,255,.1);
+      color: #d8ebff;
+      border: 1px solid rgba(86,168,255,.18);
+      font-weight: 600;
+    }
+
+    .stats {
       display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 18px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
       margin: 22px 0 30px;
     }
 
-    .card {
-      grid-column: span 4;
-      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+    .stat-card {
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
       border: 1px solid var(--line);
-      border-radius: var(--radius);
+      border-radius: 20px;
       padding: 18px;
       box-shadow: var(--shadow);
     }
 
-    .card h3 { margin-top: 0; }
-    .card p { color: var(--muted); line-height: 1.65; }
+    .stat-card span {
+      display: block;
+      color: var(--muted);
+      font-size: .88rem;
+      margin-bottom: 10px;
+    }
+
+    .stat-card strong {
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
 
     .section {
-      margin: 40px 0;
-      scroll-margin-top: 90px;
+      margin: 42px 0;
+      scroll-margin-top: 95px;
     }
 
     .section-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 16px;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
+      padding-bottom: 12px;
       border-bottom: 1px solid var(--line);
+      margin-bottom: 14px;
     }
 
-    .section h2 {
+    .section-header h2 {
       margin: 0;
-      font-size: clamp(1.7rem, 2.4vw, 2.4rem);
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
     }
 
     .chips {
@@ -265,12 +333,12 @@
     }
 
     .chip {
-      background: var(--chip);
-      border: 1px solid #2a3550;
-      color: #cfe2ff;
-      padding: 7px 10px;
       border-radius: 999px;
-      font-size: .83rem;
+      padding: 7px 11px;
+      background: #1a2334;
+      border: 1px solid #2c3a56;
+      color: #d8e7ff;
+      font-size: .84rem;
     }
 
     .lead {
@@ -280,61 +348,63 @@
     }
 
     .lesson {
-      background: rgba(19,24,34,.72);
+      background: rgba(17,23,35,.76);
       border: 1px solid var(--line);
-      border-radius: var(--radius);
+      border-radius: 22px;
       padding: 22px;
       margin: 18px 0;
+      box-shadow: var(--shadow);
     }
 
-    .lesson h3 { margin-top: 0; font-size: 1.35rem; }
-    .lesson h4 { margin: 20px 0 8px; font-size: 1.05rem; }
-    .lesson p, .lesson li { color: #dbe4ff; line-height: 1.78; }
+    .lesson h3 { margin-top: 0; font-size: 1.3rem; }
+    .lesson h4 { margin: 18px 0 8px; font-size: 1.02rem; }
+    .lesson p, .lesson li { line-height: 1.78; color: #dbe5fb; }
     .lesson ul { padding-left: 22px; }
 
     .two-col {
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: 1.15fr .85fr;
       gap: 20px;
       align-items: start;
     }
 
-    .note, .example, .exercise, .mini-card {
-      border-radius: 16px;
+    .note, .example, .exercise, .solution, .mini-card {
+      border-radius: 18px;
       padding: 16px;
-      border: 1px solid var(--line);
       margin: 14px 0;
+      border: 1px solid var(--line);
     }
 
-    .note { background: rgba(77,163,255,.08); }
-    .example { background: rgba(61,220,151,.08); }
-    .exercise { background: rgba(255,204,102,.08); }
+    .note { background: rgba(86,168,255,.08); }
+    .example { background: rgba(66,211,146,.08); }
+    .exercise { background: rgba(255,205,112,.08); }
+    .solution { background: rgba(255,124,124,.08); }
     .mini-card { background: rgba(255,255,255,.03); }
 
-    .note strong,
-    .example strong,
-    .exercise strong { display: block; margin-bottom: 8px; }
+    .note strong, .example strong, .exercise strong, .solution strong { display: block; margin-bottom: 8px; }
 
     pre {
       margin: 14px 0 0;
-      padding: 16px;
+      background: var(--code);
+      border-radius: 18px;
+      border: 1px solid #273148;
       overflow: auto;
-      border-radius: 16px;
-      border: 1px solid #283247;
-      background: var(--code-bg);
-      color: #d6e7ff;
-      font-size: .93rem;
-      line-height: 1.6;
-      white-space: pre-wrap;
+      padding: 0;
     }
 
-    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    pre code {
+      display: block;
+      padding: 18px;
+      font-size: .92rem;
+      line-height: 1.62;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
 
     table {
       width: 100%;
       border-collapse: collapse;
       overflow: hidden;
-      border-radius: 16px;
+      border-radius: 18px;
       border: 1px solid var(--line);
       margin-top: 14px;
     }
@@ -345,63 +415,150 @@
       border-bottom: 1px solid var(--line);
     }
 
-    th { background: #202838; }
+    th { background: #1a2333; }
     tr:nth-child(even) td { background: rgba(255,255,255,.02); }
+
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .week-card {
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .week-card span {
+      display: inline-block;
+      font-size: .8rem;
+      color: #d8ebff;
+      background: rgba(86,168,255,.12);
+      border: 1px solid rgba(86,168,255,.18);
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    .week-card h3 { margin: 0 0 10px; font-size: 1.08rem; }
+    .week-card p { margin: 0; color: var(--muted); line-height: 1.7; }
+
+    .quiz {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .quiz-question {
+      margin-bottom: 18px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .quiz-question:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .quiz h3 { margin-top: 0; }
+
+    .answers {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .answer-btn {
+      text-align: left;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #33415d;
+      background: #172133;
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .answer-btn:hover { background: #1d2940; }
+    .answer-btn.correct { border-color: rgba(66,211,146,.6); background: rgba(66,211,146,.16); }
+    .answer-btn.wrong { border-color: rgba(255,124,124,.6); background: rgba(255,124,124,.14); }
+
+    .quiz-feedback {
+      margin-top: 10px;
+      font-weight: 700;
+    }
 
     .footer {
       margin-top: 50px;
-      padding-top: 20px;
       border-top: 1px solid var(--line);
+      padding-top: 18px;
       color: var(--muted);
+      line-height: 1.8;
     }
 
     .hidden { display: none !important; }
 
-    @media (max-width: 1100px) {
+    @media (max-width: 1180px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .two-col { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 1040px) {
       body { grid-template-columns: 1fr; }
       .sidebar {
         position: fixed;
         left: -100%;
         width: min(88vw, 360px);
-        z-index: 30;
         transition: left .25s ease;
       }
       .sidebar.open { left: 0; }
-      .card { grid-column: span 12; }
-      .two-col { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 720px) {
-      .container { padding: 22px 16px 80px; }
+    @media (max-width: 760px) {
+      .container { padding: 20px 14px 60px; }
       .topbar { padding: 12px 14px; }
-      .hero h2 { font-size: 2.2rem; }
+      .stats, .week-grid { grid-template-columns: 1fr; }
+      .hero { padding: 24px 18px; }
+      .hero h1 { font-size: 2.3rem; }
+      .section-header { align-items: flex-start; flex-direction: column; }
     }
   </style>
 </head>
 <body>
   <aside class="sidebar" id="sidebar">
     <div class="brand">
-      <div class="brand-logo">💻</div>
+      <div class="brand-icon">🌐</div>
       <div>
         <h1>Création de sites Web</h1>
-        <p>420-112 · HTML, CSS, JavaScript</p>
+        <p>420-112 · Documentation du cours</p>
       </div>
     </div>
 
-    <div class="search-wrap">
-      <input id="searchInput" class="search" type="search" placeholder="Rechercher un concept, une balise, une méthode..." />
+    <div class="search-box">
+      <input id="searchInput" type="search" placeholder="Rechercher HTML, CSS, JavaScript..." />
     </div>
 
     <a class="home-link" href="#home">🏠 Home</a>
 
-    <div class="nav-group">
-      <p class="nav-title">Introduction</p>
+    <div class="nav-section">
+      <p class="nav-title">Vue d’ensemble</p>
+      <a class="nav-link" href="#plan-cours">Plan du cours</a>
       <a class="nav-link" href="#intro-web">Introduction au Web</a>
+      <a class="nav-link" href="#revision-finale">Révision finale</a>
+    </div>
+
+    <div class="nav-section">
+      <p class="nav-title">HTML / CSS</p>
       <a class="nav-link" href="#structure-html">Structure HTML</a>
       <a class="nav-link" href="#texte-html">Structuration du texte</a>
       <a class="nav-link" href="#liens-html">Liens hypertextes</a>
       <a class="nav-link" href="#tableaux-html">Tableaux</a>
-      <a class="nav-link" href="#css-intro">CSS</a>
+      <a class="nav-link" href="#css-intro">Introduction CSS</a>
       <a class="nav-link" href="#styles-polices">Polices et styles</a>
       <a class="nav-link" href="#couleurs-fonds">Couleurs et fonds</a>
       <a class="nav-link" href="#audio-video">Audio et vidéo</a>
@@ -409,84 +566,115 @@
       <a class="nav-link" href="#reactivite">Réactivité</a>
     </div>
 
-    <div class="nav-group">
+    <div class="nav-section">
       <p class="nav-title">JavaScript</p>
       <a class="nav-link" href="#js-intro">Introduction à JavaScript</a>
       <a class="nav-link" href="#variables-constantes">Variables et constantes</a>
       <a class="nav-link" href="#chaines-math-dates">Chaînes, maths et dates</a>
-      <a class="nav-link" href="#conditions-js">Structures conditionnelles</a>
-      <a class="nav-link" href="#boucles-js">Structures de répétition</a>
+      <a class="nav-link" href="#conditions-js">Conditions</a>
+      <a class="nav-link" href="#boucles-js">Boucles</a>
       <a class="nav-link" href="#dom-fonctions-objets">DOM, fonctions et objets</a>
       <a class="nav-link" href="#javascript-dom">JavaScript et le DOM</a>
     </div>
 
-    <div class="nav-group">
+    <div class="nav-section">
       <p class="nav-title">Pratique</p>
       <a class="nav-link" href="#exercices-guides">Exercices guidés</a>
       <a class="nav-link" href="#mini-projets">Mini-projets</a>
-      <a class="nav-link" href="#revision-finale">Révision</a>
+      <a class="nav-link" href="#quiz-rapide">Quiz rapide</a>
     </div>
   </aside>
 
   <main class="main">
     <div class="topbar">
-      <div class="crumbs">420-112 / Création de sites Web / Documentation du cours</div>
-      <div class="actions">
+      <div class="topbar-left">
+        <p class="eyebrow">420-112 / Développement Web / Documentation monofichier</p>
+        <h2>Création de sites Web — HTML, CSS et JavaScript</h2>
+      </div>
+      <div class="topbar-actions">
         <button class="btn" id="menuBtn">☰ Menu</button>
-        <a class="btn" href="#revision-finale">Révision</a>
+        <a class="btn" href="#plan-cours">Semaines</a>
         <a class="btn primary" href="#mini-projets">Projets</a>
       </div>
     </div>
 
     <div class="container" id="home">
-      <header class="hero">
-        <h2>Introduction à la programmation Web</h2>
+      <header class="hero searchable" data-title="Accueil du cours">
+        <h1>Introduction à la programmation Web</h1>
         <p>
-          Ce site regroupe les concepts essentiels du cours : structure HTML, mise en forme CSS, interactivité
-          avec JavaScript, formulaires, DOM, tableaux, liens, responsive design et exercices pratiques.
-          L’objectif est de fournir une page unique, lisible et navigable comme une vraie documentation de cours.
+          Cette version regroupe tout le contenu essentiel du cours dans une seule page : structure HTML,
+          mise en forme CSS, formulaires, tableaux, responsive design, ainsi que JavaScript, variables,
+          conditions, boucles, fonctions, objets et manipulation du DOM. Le style suit une logique de
+          documentation moderne, adaptée à GitHub Pages et à l’étude autonome des étudiants.
         </p>
+        <div class="hero-actions">
+          <span class="pill">📘 Théorie</span>
+          <span class="pill">💡 Exemples</span>
+          <span class="pill">🧪 Exercices</span>
+          <span class="pill">🚀 Mini-projets</span>
+        </div>
       </header>
 
-      <section class="grid">
-        <article class="card">
-          <h3>HTML</h3>
-          <p>Construire la structure sémantique d’une page, organiser le texte, créer des liens, des tableaux, des formulaires et intégrer du multimédia.</p>
+      <section class="stats">
+        <article class="stat-card">
+          <span>Modules</span>
+          <strong>17</strong>
         </article>
-        <article class="card">
-          <h3>CSS</h3>
-          <p>Mettre en forme la page avec couleurs, polices, espacements, bordures, arrière-plans et techniques de mise en page réactive.</p>
+        <article class="stat-card">
+          <span>Technologies</span>
+          <strong>3</strong>
         </article>
-        <article class="card">
-          <h3>JavaScript</h3>
-          <p>Ajouter de l’interactivité, manipuler le DOM, utiliser les variables, conditions, boucles, fonctions et objets pour rendre le site dynamique.</p>
+        <article class="stat-card">
+          <span>Exercices</span>
+          <strong>12+</strong>
         </article>
+        <article class="stat-card">
+          <span>Mini-projets</span>
+          <strong>4</strong>
+        </article>
+      </section>
+
+      <section class="section searchable" id="plan-cours" data-title="Plan du cours et semaines">
+        <div class="section-header">
+          <h2>Plan du cours par semaines</h2>
+          <div class="chips"><span class="chip">Organisation</span><span class="chip">Progression</span></div>
+        </div>
+        <p class="lead">Voici une progression logique du cours, facile à adapter selon ton calendrier réel. Cette section donne aux étudiants une vue claire du parcours à suivre.</p>
+        <div class="week-grid">
+          <article class="week-card"><span>Semaine 1</span><h3>Structure HTML</h3><p>Découvrir le squelette d’un fichier HTML, les métadonnées, le titre et le rôle du body.</p></article>
+          <article class="week-card"><span>Semaine 2</span><h3>Structuration du texte</h3><p>Utiliser les titres, paragraphes, balises d’emphase et retours de ligne pour organiser le contenu.</p></article>
+          <article class="week-card"><span>Semaine 3</span><h3>Liens hypertextes</h3><p>Créer des liens internes, externes et des ancres pour naviguer dans un site ou une page.</p></article>
+          <article class="week-card"><span>Semaine 4</span><h3>CSS de base</h3><p>Écrire des styles, comprendre les sélecteurs et modifier l’apparence globale d’une page.</p></article>
+          <article class="week-card"><span>Semaine 5</span><h3>Tableaux</h3><p>Présenter des données dans des rangées et colonnes et ajouter une mise en forme CSS simple.</p></article>
+          <article class="week-card"><span>Semaine 6</span><h3>Formulaires</h3><p>Créer des champs de saisie, des listes déroulantes, des cases à cocher et des boutons.</p></article>
+          <article class="week-card"><span>Semaine 7</span><h3>Introduction à JavaScript</h3><p>Comprendre le rôle du langage et écrire les premiers scripts interactifs.</p></article>
+          <article class="week-card"><span>Semaine 8</span><h3>Variables et constantes</h3><p>Déclarer des données, récupérer une saisie utilisateur et utiliser des opérateurs.</p></article>
+          <article class="week-card"><span>Semaine 9</span><h3>Conditions</h3><p>Prendre des décisions avec if, else if, else et switch.</p></article>
+          <article class="week-card"><span>Semaine 10</span><h3>Boucles</h3><p>Répéter des instructions avec for, while, do...while, for...of et for...in.</p></article>
+          <article class="week-card"><span>Semaine 11</span><h3>DOM et fonctions</h3><p>Comprendre le modèle objet du document, créer des fonctions et manipuler des objets.</p></article>
+          <article class="week-card"><span>Semaine 12</span><h3>Projet intégrateur</h3><p>Construire une page complète combinant HTML, CSS et JavaScript.</p></article>
+        </div>
       </section>
 
       <section class="section searchable" id="intro-web" data-title="Introduction au Web">
         <div class="section-header">
           <h2>Introduction au Web</h2>
-          <div class="chips"><span class="chip">Vue d’ensemble</span><span class="chip">Cours</span></div>
+          <div class="chips"><span class="chip">Vue d’ensemble</span><span class="chip">Fondations</span></div>
         </div>
-        <p class="lead">
-          En développement Web, HTML sert à structurer l’information, CSS à habiller cette structure et JavaScript à
-          ajouter de l’interactivité. Une page moderne ne se limite plus à afficher de l’information : elle réagit,
-          valide, anime et met à jour son contenu selon les actions de l’utilisateur.
-        </p>
         <div class="lesson">
-          <h3>Rôle des trois technologies</h3>
           <div class="two-col">
             <div>
+              <h3>Les trois piliers</h3>
               <ul>
-                <li><strong>HTML</strong> : le squelette de la page.</li>
-                <li><strong>CSS</strong> : l’apparence visuelle et la mise en page.</li>
-                <li><strong>JavaScript</strong> : la logique, l’interaction et la manipulation du contenu.</li>
+                <li><strong>HTML</strong> définit la structure de la page.</li>
+                <li><strong>CSS</strong> gère l’apparence, les couleurs, les polices et la mise en page.</li>
+                <li><strong>JavaScript</strong> ajoute l’interactivité et la logique.</li>
               </ul>
-              <div class="note"><strong>À retenir</strong>Une page bien construite sépare la structure, la présentation et le comportement.</div>
+              <div class="note"><strong>À retenir</strong>Une bonne page Web sépare la structure, la présentation et le comportement.</div>
             </div>
             <div class="mini-card">
-              <h4>Exemple d’enchaînement</h4>
-              <p>Un utilisateur remplit un formulaire HTML, CSS l’affiche proprement et JavaScript vérifie les champs avant l’envoi.</p>
+              <h4>Exemple concret</h4>
+              <p>Un formulaire de contact est structuré en HTML, stylisé avec CSS et validé avec JavaScript avant l’envoi.</p>
             </div>
           </div>
         </div>
@@ -495,12 +683,12 @@
       <section class="section searchable" id="structure-html" data-title="Structure HTML">
         <div class="section-header">
           <h2>Structure de base d’un fichier HTML</h2>
-          <div class="chips"><span class="chip">HTML</span><span class="chip">Balises</span><span class="chip">Head / Body</span></div>
+          <div class="chips"><span class="chip">DOCTYPE</span><span class="chip">head</span><span class="chip">body</span></div>
         </div>
         <div class="lesson">
-          <h3>Le squelette minimal d’une page</h3>
-          <p>Un document HTML commence par la déclaration <code>&lt;!DOCTYPE html&gt;</code>, suivie de la balise racine <code>&lt;html&gt;</code>. La section <code>&lt;head&gt;</code> contient les métadonnées de la page et <code>&lt;body&gt;</code> contient tout le contenu visible à l’écran.</p>
-          <pre><code>&lt;!DOCTYPE html&gt;
+          <h3>Le squelette minimal</h3>
+          <p>Un document HTML commence par la déclaration du type de document, suivie de la balise racine <code>&lt;html&gt;</code>. La section <code>&lt;head&gt;</code> contient les métadonnées, tandis que <code>&lt;body&gt;</code> contient le contenu visible.</p>
+          <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="fr"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
@@ -512,83 +700,49 @@
   &lt;p&gt;Bienvenue dans le cours de création de sites Web.&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-          <h4>À quoi servent ces balises ?</h4>
-          <ul>
-            <li><code>&lt;meta charset="UTF-8"&gt;</code> : gère correctement les accents et caractères spéciaux.</li>
-            <li><code>&lt;meta name="viewport"&gt;</code> : prépare l’affichage mobile.</li>
-            <li><code>&lt;title&gt;</code> : texte affiché dans l’onglet du navigateur.</li>
-          </ul>
-          <div class="example">
-            <strong>Exemple</strong>
-            Dans Visual Studio Code, on crée souvent un fichier <code>index.html</code> comme page d’accueil du site.
-          </div>
-          <div class="exercise">
-            <strong>Exercice</strong>
-            Crée une page contenant un titre principal, un sous-titre, deux paragraphes et un lien vers un autre site.
-          </div>
+          <div class="exercise"><strong>Exercice</strong>Crée un fichier <code>index.html</code> contenant un titre principal, un sous-titre et deux paragraphes.</div>
         </div>
       </section>
 
       <section class="section searchable" id="texte-html" data-title="Structuration du texte">
         <div class="section-header">
           <h2>Structuration du texte</h2>
-          <div class="chips"><span class="chip">Titres</span><span class="chip">Paragraphes</span><span class="chip">strong / em</span></div>
+          <div class="chips"><span class="chip">h1-h6</span><span class="chip">p</span><span class="chip">strong / em</span></div>
         </div>
         <div class="lesson">
-          <h3>Organiser le texte dans une page</h3>
-          <p>HTML fournit plusieurs balises pour structurer clairement le contenu : titres, paragraphes, retours de ligne et balises de mise en valeur. Une bonne structure aide autant la lecture humaine que l’accessibilité.</p>
-          <pre><code>&lt;h1&gt;Cours de création Web&lt;/h1&gt;
+          <h3>Organiser les contenus</h3>
+          <pre><code class="language-html">&lt;h1&gt;Cours de création Web&lt;/h1&gt;
 &lt;h2&gt;Chapitre 1 : HTML&lt;/h2&gt;
 &lt;p&gt;Le HTML sert à structurer une page Web.&lt;/p&gt;
 &lt;p&gt;On peut mettre un mot en &lt;strong&gt;évidence&lt;/strong&gt; ou en &lt;em&gt;emphase&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Première ligne&lt;br&gt;Deuxième ligne&lt;/p&gt;</code></pre>
-          <h4>Balises courantes</h4>
-          <ul>
-            <li><code>&lt;h1&gt;</code> à <code>&lt;h6&gt;</code> : niveaux de titres.</li>
-            <li><code>&lt;p&gt;</code> : paragraphe.</li>
-            <li><code>&lt;br&gt;</code> : retour de ligne.</li>
-            <li><code>&lt;strong&gt;</code> : importance forte.</li>
-            <li><code>&lt;em&gt;</code> : emphase.</li>
-          </ul>
-          <div class="note"><strong>À retenir</strong>Il vaut mieux utiliser les balises sémantiques que d’essayer de “dessiner” le texte uniquement avec le style.</div>
+          <div class="example"><strong>Conseil</strong>Un bon usage des titres aide la lecture, l’accessibilité et le référencement.</div>
         </div>
       </section>
 
       <section class="section searchable" id="liens-html" data-title="Liens hypertextes">
         <div class="section-header">
           <h2>Les liens hypertextes</h2>
-          <div class="chips"><span class="chip">Navigation</span><span class="chip">Pages</span><span class="chip">Ancres</span></div>
+          <div class="chips"><span class="chip">href</span><span class="chip">Ancre</span><span class="chip">Navigation</span></div>
         </div>
         <div class="lesson">
-          <h3>L’essence même du Web</h3>
-          <p>Une page Web sans liens est très limitée. Les hyperliens servent à naviguer d’une page à l’autre, à accéder à des rubriques précises d’un site et à ouvrir des ressources externes. Ils permettent d’organiser l’information sans surcharger une seule page.</p>
-          <h4>Syntaxe de base</h4>
-          <pre><code>&lt;a href="page2.html"&gt;Aller à la page 2&lt;/a&gt;</code></pre>
-          <h4>Lien externe</h4>
-          <pre><code>&lt;a href="https://www.example.com" target="_blank"&gt;Visiter Example&lt;/a&gt;</code></pre>
-          <h4>Lien interne dans la même page</h4>
-          <pre><code>&lt;a href="#section1"&gt;Aller à la section 1&lt;/a&gt;
-
-&lt;h2 id="section1"&gt;Section 1&lt;/h2&gt;
-&lt;p&gt;Contenu de la section 1.&lt;/p&gt;</code></pre>
-          <h4>Lien courriel</h4>
-          <pre><code>&lt;a href="mailto:prof@example.com"&gt;Envoyer un courriel&lt;/a&gt;</code></pre>
-          <div class="example">
-            <strong>Bon réflexe</strong>
-            Utilise un texte de lien explicite comme <em>Consulter l’horaire du cours</em> plutôt que <em>cliquez ici</em>.
-          </div>
+          <h3>Relier les pages et les sections</h3>
+          <pre><code class="language-html">&lt;a href="page2.html"&gt;Aller à la page 2&lt;/a&gt;
+&lt;a href="https://www.example.com" target="_blank"&gt;Visiter Example&lt;/a&gt;
+&lt;a href="#section1"&gt;Aller à la section 1&lt;/a&gt;
+&lt;a href="mailto:prof@example.com"&gt;Envoyer un courriel&lt;/a&gt;</code></pre>
+          <div class="note"><strong>Bonne pratique</strong>Rédige un texte de lien explicite. Évite “cliquez ici”.</div>
         </div>
       </section>
 
       <section class="section searchable" id="tableaux-html" data-title="Tableaux HTML">
         <div class="section-header">
           <h2>Les tableaux</h2>
-          <div class="chips"><span class="chip">table</span><span class="chip">thead</span><span class="chip">tbody</span><span class="chip">CSS</span></div>
+          <div class="chips"><span class="chip">table</span><span class="chip">th</span><span class="chip">td</span></div>
         </div>
         <div class="lesson">
-          <h3>Présenter des données de façon structurée</h3>
-          <p>Les tableaux sont utiles pour afficher de l’information organisée en rangées et en colonnes. Aujourd’hui, ils servent surtout à représenter des données et non à faire la mise en page générale du site.</p>
-          <pre><code>&lt;table&gt;
+          <h3>Présenter des données</h3>
+          <pre><code class="language-html">&lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
       &lt;th&gt;Nom de l’évaluation&lt;/th&gt;
@@ -602,15 +756,9 @@
       &lt;td&gt;10 %&lt;/td&gt;
       &lt;td&gt;Semaine 5&lt;/td&gt;
     &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Laboratoire 2&lt;/td&gt;
-      &lt;td&gt;10 %&lt;/td&gt;
-      &lt;td&gt;Semaine 11&lt;/td&gt;
-    &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;</code></pre>
-          <h4>Mise en forme CSS d’un tableau</h4>
-          <pre><code>table {
+          <pre><code class="language-css">table {
   width: 100%;
   border-collapse: collapse;
 }
@@ -623,36 +771,28 @@ th, td {
 th {
   background-color: #1f2937;
 }</code></pre>
-          <div class="note"><strong>À retenir</strong>Chaque rangée regroupe des informations liées entre elles. Les cellules d’en-tête clarifient le sens des colonnes.</div>
         </div>
       </section>
 
       <section class="section searchable" id="css-intro" data-title="Introduction CSS">
         <div class="section-header">
           <h2>Nos premiers pas avec CSS</h2>
-          <div class="chips"><span class="chip">Sélecteurs</span><span class="chip">Propriétés</span><span class="chip">Styles</span></div>
+          <div class="chips"><span class="chip">Sélecteurs</span><span class="chip">Propriétés</span><span class="chip">Fichier externe</span></div>
         </div>
         <div class="lesson">
-          <h3>Pourquoi utiliser CSS ?</h3>
-          <p>HTML crée le squelette, CSS habille ce squelette. Grâce à CSS, on contrôle les couleurs, les espacements, les bordures, l’alignement, la largeur et l’apparence générale de la page.</p>
-          <h4>Trois façons d’écrire du CSS</h4>
-          <ul>
-            <li><strong>Inline</strong> : directement dans l’attribut <code>style</code>.</li>
-            <li><strong>Interne</strong> : avec une balise <code>&lt;style&gt;</code> dans <code>&lt;head&gt;</code>.</li>
-            <li><strong>Externe</strong> : dans un fichier <code>style.css</code>, méthode recommandée.</li>
-          </ul>
-          <pre><code>&lt;head&gt;
+          <h3>Habiller le squelette HTML</h3>
+          <p>CSS sert à transformer une page brute en interface visuelle agréable. On peut écrire les styles en inline, en interne ou dans un fichier externe. La méthode recommandée est le fichier externe.</p>
+          <pre><code class="language-html">&lt;head&gt;
   &lt;link rel="stylesheet" href="style.css"&gt;
 &lt;/head&gt;</code></pre>
-          <pre><code>p {
+          <pre><code class="language-css">p {
   color: white;
   background-color: #203040;
   padding: 12px;
   border: 1px solid #4da3ff;
   margin: 16px 0;
 }</code></pre>
-          <h4>Sélecteurs fréquents</h4>
-          <pre><code>* {
+          <pre><code class="language-css">* {
   box-sizing: border-box;
 }
 
@@ -667,10 +807,6 @@ h1 {
 #entete {
   border-bottom: 2px solid #4da3ff;
 }</code></pre>
-          <div class="exercise">
-            <strong>Exercice</strong>
-            Reproduis une boîte avec <code>width</code>, <code>background-color</code>, <code>border</code>, <code>padding</code> et <code>margin</code>.
-          </div>
         </div>
       </section>
 
@@ -680,9 +816,8 @@ h1 {
           <div class="chips"><span class="chip">font-family</span><span class="chip">font-size</span><span class="chip">text-align</span></div>
         </div>
         <div class="lesson">
-          <h3>Soigner la lisibilité</h3>
-          <p>Le choix d’une police influe sur la personnalité du site, mais aussi sur le confort de lecture. On choisit souvent une police principale et une ou plusieurs polices de repli.</p>
-          <pre><code>body {
+          <h3>Soigner la lecture</h3>
+          <pre><code class="language-css">body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   line-height: 1.6;
@@ -697,15 +832,13 @@ p {
   font-style: normal;
 }</code></pre>
           <table>
-            <thead>
-              <tr><th>Propriété</th><th>Utilité</th></tr>
-            </thead>
+            <thead><tr><th>Propriété</th><th>Utilité</th></tr></thead>
             <tbody>
-              <tr><td><code>font-family</code></td><td>Choix de la police</td></tr>
-              <tr><td><code>font-size</code></td><td>Taille du texte</td></tr>
-              <tr><td><code>font-weight</code></td><td>Épaisseur</td></tr>
+              <tr><td><code>font-family</code></td><td>Choisir la police</td></tr>
+              <tr><td><code>font-size</code></td><td>Définir la taille</td></tr>
+              <tr><td><code>font-weight</code></td><td>Modifier l’épaisseur</td></tr>
               <tr><td><code>font-style</code></td><td>Normal ou italique</td></tr>
-              <tr><td><code>text-align</code></td><td>Alignement du texte</td></tr>
+              <tr><td><code>text-align</code></td><td>Aligner le texte</td></tr>
             </tbody>
           </table>
         </div>
@@ -717,10 +850,8 @@ p {
           <div class="chips"><span class="chip">color</span><span class="chip">background-color</span><span class="chip">background-image</span></div>
         </div>
         <div class="lesson">
-          <h3>Choisir et appliquer les couleurs</h3>
-          <p>Les couleurs influencent la perception d’un site. Elles doivent aider la lecture, renforcer l’identité visuelle et respecter un contraste suffisant entre l’arrière-plan et le texte.</p>
-          <h4>Couleur du texte et fond</h4>
-          <pre><code>body {
+          <h3>Créer une ambiance visuelle cohérente</h3>
+          <pre><code class="language-css">body {
   color: #f8fafc;
   background-color: #0f172a;
 }
@@ -728,21 +859,18 @@ p {
 h1 {
   color: #60a5fa;
 }</code></pre>
-          <h4>Ajouter une image de fond</h4>
-          <pre><code>body {
+          <pre><code class="language-css">body {
   background-image: url("images/fond.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }</code></pre>
-          <h4>Créer une carte lisible sur image</h4>
-          <pre><code>.carte {
+          <pre><code class="language-css">.carte {
   background-color: rgba(0, 0, 0, 0.65);
   color: white;
   padding: 20px;
   border-radius: 12px;
 }</code></pre>
-          <div class="example"><strong>Conseil</strong>Évite de multiplier trop de couleurs différentes sur une même page. Une palette restreinte donne un résultat plus professionnel.</div>
         </div>
       </section>
 
@@ -752,27 +880,15 @@ h1 {
           <div class="chips"><span class="chip">audio</span><span class="chip">video</span><span class="chip">controls</span></div>
         </div>
         <div class="lesson">
-          <h3>Intégrer du multimédia sans plugin</h3>
-          <p>Avec HTML5, on peut intégrer de l’audio et de la vidéo directement dans le navigateur, sans dépendre d’anciens plugins comme Flash.</p>
-          <h4>Exemple audio</h4>
-          <pre><code>&lt;audio controls&gt;
+          <h3>Intégrer du multimédia</h3>
+          <pre><code class="language-html">&lt;audio controls&gt;
   &lt;source src="sons/intro.mp3" type="audio/mpeg"&gt;
   Votre navigateur ne supporte pas l’élément audio.
 &lt;/audio&gt;</code></pre>
-          <h4>Exemple vidéo</h4>
-          <pre><code>&lt;video controls width="640" poster="images/apercu.jpg"&gt;
+          <pre><code class="language-html">&lt;video controls width="640" poster="images/apercu.jpg"&gt;
   &lt;source src="videos/demo.mp4" type="video/mp4"&gt;
   Votre navigateur ne supporte pas l’élément vidéo.
 &lt;/video&gt;</code></pre>
-          <h4>Attributs utiles</h4>
-          <ul>
-            <li><code>controls</code> : affiche les boutons de lecture.</li>
-            <li><code>autoplay</code> : démarre automatiquement.</li>
-            <li><code>loop</code> : relance la lecture.</li>
-            <li><code>muted</code> : coupe le son.</li>
-            <li><code>poster</code> : image affichée avant la lecture d’une vidéo.</li>
-          </ul>
-          <div class="note"><strong>Remarque</strong>Il est souvent préférable de fournir des médias compressés pour réduire le temps de chargement.</div>
         </div>
       </section>
 
@@ -782,10 +898,8 @@ h1 {
           <div class="chips"><span class="chip">form</span><span class="chip">input</span><span class="chip">select</span><span class="chip">textarea</span></div>
         </div>
         <div class="lesson">
-          <h3>Créer une zone d’interaction</h3>
-          <p>Les formulaires permettent à l’utilisateur de transmettre des informations : texte, choix simples, choix multiples ou messages. Ils constituent un point central d’interaction entre l’utilisateur et le site.</p>
-          <h4>Structure générale</h4>
-          <pre><code>&lt;form action="traitement.php" method="post" name="contact"&gt;
+          <h3>Créer une interface de saisie</h3>
+          <pre><code class="language-html">&lt;form action="traitement.php" method="post" name="contact"&gt;
   &lt;label for="nom"&gt;Nom&lt;/label&gt;
   &lt;input id="nom" name="nom" type="text" required&gt;
 
@@ -803,18 +917,7 @@ h1 {
 
   &lt;button type="submit"&gt;Envoyer&lt;/button&gt;
 &lt;/form&gt;</code></pre>
-          <h4>Types de contrôles fréquents</h4>
-          <ul>
-            <li><code>type="text"</code> : texte simple</li>
-            <li><code>type="email"</code> : adresse courriel</li>
-            <li><code>type="password"</code> : mot de passe</li>
-            <li><code>type="radio"</code> : choix unique</li>
-            <li><code>type="checkbox"</code> : choix multiple</li>
-            <li><code>&lt;select&gt;</code> : liste déroulante</li>
-            <li><code>&lt;textarea&gt;</code> : texte long</li>
-          </ul>
-          <h4>Exemple CSS pour styliser un formulaire</h4>
-          <pre><code>form {
+          <pre><code class="language-css">form {
   max-width: 600px;
 }
 
@@ -836,15 +939,12 @@ input, select, textarea {
       <section class="section searchable" id="reactivite" data-title="Réactivité responsive">
         <div class="section-header">
           <h2>Réactivité</h2>
-          <div class="chips"><span class="chip">Responsive</span><span class="chip">Viewport</span><span class="chip">Flex</span></div>
+          <div class="chips"><span class="chip">Responsive</span><span class="chip">Viewport</span><span class="chip">Media queries</span></div>
         </div>
         <div class="lesson">
-          <h3>Adapter le site aux différents écrans</h3>
-          <p>Un site réactif offre une consultation confortable sur ordinateur, tablette et téléphone. Cela passe par la balise viewport, des largeurs souples et des techniques de mise en page comme Flexbox.</p>
-          <h4>Balise viewport</h4>
-          <pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></pre>
-          <h4>Disposition flexible</h4>
-          <pre><code>.conteneur {
+          <h3>Adapter la page à tous les écrans</h3>
+          <pre><code class="language-html">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></pre>
+          <pre><code class="language-css">.conteneur {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
@@ -855,8 +955,7 @@ input, select, textarea {
   padding: 20px;
   background-color: #1e293b;
 }</code></pre>
-          <h4>Media query</h4>
-          <pre><code>@media (max-width: 768px) {
+          <pre><code class="language-css">@media (max-width: 768px) {
   .menu {
     flex-direction: column;
   }
@@ -865,63 +964,47 @@ input, select, textarea {
     padding: 12px;
   }
 }</code></pre>
-          <div class="exercise"><strong>Exercice</strong>Crée une grille de cartes qui s’affiche sur trois colonnes à l’ordinateur et une seule colonne sur téléphone.</div>
         </div>
       </section>
 
       <section class="section searchable" id="js-intro" data-title="Introduction à JavaScript">
         <div class="section-header">
           <h2>Introduction à JavaScript</h2>
-          <div class="chips"><span class="chip">Script</span><span class="chip">Client</span><span class="chip">DOM</span></div>
+          <div class="chips"><span class="chip">Script</span><span class="chip">Client</span><span class="chip">Interactivité</span></div>
         </div>
         <div class="lesson">
           <h3>Le langage de l’interactivité</h3>
-          <p>JavaScript est principalement utilisé côté client pour rendre les pages Web interactives. Il peut accéder aux objets du DOM, traiter les formulaires, afficher des messages et réagir aux événements déclenchés par l’utilisateur.</p>
-          <h4>Premiers essais</h4>
-          <pre><code>&lt;script&gt;
+          <pre><code class="language-html">&lt;script&gt;
   alert("Bonjour !");
   console.log("Le script est bien exécuté.");
 &lt;/script&gt;</code></pre>
-          <h4>Où écrire le JavaScript ?</h4>
-          <ul>
-            <li>Directement dans une balise <code>&lt;script&gt;</code> dans la page HTML.</li>
-            <li>Dans un fichier externe comme <code>script.js</code>.</li>
-          </ul>
-          <pre><code>&lt;script src="script.js"&gt;&lt;/script&gt;</code></pre>
+          <pre><code class="language-html">&lt;script src="script.js"&gt;&lt;/script&gt;</code></pre>
         </div>
       </section>
 
       <section class="section searchable" id="variables-constantes" data-title="Variables et constantes">
         <div class="section-header">
           <h2>Variables et constantes</h2>
-          <div class="chips"><span class="chip">let</span><span class="chip">const</span><span class="chip">prompt()</span><span class="chip">alert()</span></div>
+          <div class="chips"><span class="chip">let</span><span class="chip">const</span><span class="chip">prompt()</span></div>
         </div>
         <div class="lesson">
-          <h3>Stocker et récupérer des valeurs</h3>
-          <p>Les variables servent à conserver une information en mémoire. Les constantes contiennent une valeur qui doit être fournie dès la déclaration et qui ne sera pas réassignée ensuite.</p>
-          <pre><code>let nom = "Sofiane";
+          <h3>Stocker des valeurs</h3>
+          <pre><code class="language-javascript">let nom = "Sofiane";
 let age = 19;
 const cours = "420-112";
 
 alert("Bonjour " + nom);
 let ville = prompt("Dans quelle ville habites-tu ?");
 console.log(ville);</code></pre>
-          <h4>Règles de nommage</h4>
-          <ul>
-            <li>Utiliser lettres, chiffres, <code>$</code> et <code>_</code>.</li>
-            <li>Ne pas commencer par un chiffre.</li>
-            <li>Respecter la casse : <code>nom</code> et <code>Nom</code> sont différents.</li>
-          </ul>
-          <h4>Opérateurs utiles</h4>
-          <pre><code>let a = 10;
+          <pre><code class="language-javascript">let a = 10;
 let b = "10";
 
 console.log(a == b);   // true
 console.log(a === b);  // false
 console.log(a != b);   // false
 console.log(a !== b);  // true
-console.log(a &gt; 5);    // true</code></pre>
-          <div class="note"><strong>À retenir</strong><code>==</code> compare les valeurs, alors que <code>===</code> compare à la fois la valeur et le type.</div>
+console.log(a > 5);    // true</code></pre>
+          <div class="note"><strong>À retenir</strong><code>===</code> compare la valeur et le type.</div>
         </div>
       </section>
 
@@ -931,10 +1014,8 @@ console.log(a &gt; 5);    // true</code></pre>
           <div class="chips"><span class="chip">String</span><span class="chip">Math</span><span class="chip">Date</span></div>
         </div>
         <div class="lesson">
-          <h3>Chaînes de caractères</h3>
-          <p>En JavaScript, les chaînes sont des objets. On utilise des méthodes pour mesurer leur longueur, transformer leur casse, trouver du texte, extraire une partie ou concaténer plusieurs valeurs.</p>
-          <pre><code>let texte = "Développement Web";
-let prenom = 'Sofiane';
+          <pre><code class="language-javascript">let texte = "Développement Web";
+let prenom = "Sofiane";
 
 console.log(texte.length);
 console.log(texte.toUpperCase());
@@ -942,14 +1023,12 @@ console.log(texte.toLowerCase());
 console.log(texte.includes("Web"));
 console.log(texte.substring(0, 13));
 console.log("Bonjour " + prenom);</code></pre>
-          <h3>Fonctions mathématiques</h3>
-          <pre><code>console.log(Math.round(4.6));
+          <pre><code class="language-javascript">console.log(Math.round(4.6));
 console.log(Math.floor(4.6));
 console.log(Math.ceil(4.1));
 console.log(Math.max(5, 12, 8));
 console.log(Math.random());</code></pre>
-          <h3>Dates</h3>
-          <pre><code>let maintenant = new Date();
+          <pre><code class="language-javascript">let maintenant = new Date();
 console.log(maintenant.getFullYear());
 console.log(maintenant.getMonth() + 1);
 console.log(maintenant.getDate());
@@ -963,26 +1042,21 @@ console.log(maintenant.getDay());</code></pre>
           <div class="chips"><span class="chip">if</span><span class="chip">else if</span><span class="chip">switch</span></div>
         </div>
         <div class="lesson">
-          <h3>Décider selon une condition</h3>
-          <p>Une condition permet d’exécuter un bloc de code seulement si un test logique est vrai. JavaScript propose plusieurs formes : <code>if</code>, <code>if ... else</code>, <code>if ... else if ... else</code> et <code>switch</code>.</p>
-          <h4>Structure if</h4>
-          <pre><code>let temperature = 28;
+          <pre><code class="language-javascript">let temperature = 28;
 
-if (temperature &gt; 25) {
+if (temperature > 25) {
   console.log("Il fait chaud.");
 }</code></pre>
-          <h4>Structure if ... else if ... else</h4>
-          <pre><code>let note = 78;
+          <pre><code class="language-javascript">let note = 78;
 
-if (note &gt;= 90) {
+if (note >= 90) {
   console.log("Excellent");
-} else if (note &gt;= 60) {
+} else if (note >= 60) {
   console.log("Réussi");
 } else {
   console.log("Échec");
 }</code></pre>
-          <h4>Structure switch</h4>
-          <pre><code>let choix = "A";
+          <pre><code class="language-javascript">let choix = "A";
 
 switch (choix) {
   case "A":
@@ -1000,34 +1074,23 @@ switch (choix) {
       <section class="section searchable" id="boucles-js" data-title="Structures de répétition">
         <div class="section-header">
           <h2>Structures de répétition</h2>
-          <div class="chips"><span class="chip">for</span><span class="chip">while</span><span class="chip">do...while</span><span class="chip">for...in</span></div>
+          <div class="chips"><span class="chip">for</span><span class="chip">while</span><span class="chip">for...of</span><span class="chip">for...in</span></div>
         </div>
         <div class="lesson">
-          <h3>Exécuter plusieurs fois un bloc de code</h3>
-          <p>Les boucles servent à répéter des instructions tant qu’une condition est vraie ou pendant un nombre déterminé d’itérations.</p>
-          <h4>Boucle for</h4>
-          <pre><code>for (let i = 1; i &lt;= 5; i++) {
+          <pre><code class="language-javascript">for (let i = 1; i <= 5; i++) {
   console.log("Bienvenue dans le cours Développement Web II");
 }</code></pre>
-          <h4>Boucle while</h4>
-          <pre><code>let compteur = 0;
-while (compteur &lt; 3) {
+          <pre><code class="language-javascript">let compteur = 0;
+while (compteur < 3) {
   console.log("Compteur : " + compteur);
   compteur++;
 }</code></pre>
-          <h4>Boucle do...while</h4>
-          <pre><code>let nombre = 0;
-do {
-  console.log("Valeur : " + nombre);
-  nombre++;
-} while (nombre &lt; 2);</code></pre>
-          <h4>Parcourir un tableau</h4>
-          <pre><code>let technologies = ["HTML", "CSS", "JavaScript"];
+          <pre><code class="language-javascript">let technologies = ["HTML", "CSS", "JavaScript"];
 
 for (let techno of technologies) {
   console.log(techno);
 }</code></pre>
-          <pre><code>let etudiant = { nom: "Ali", session: 1, groupe: "A" };
+          <pre><code class="language-javascript">let etudiant = { nom: "Ali", session: 1, groupe: "A" };
 
 for (let cle in etudiant) {
   console.log(cle + " : " + etudiant[cle]);
@@ -1041,17 +1104,13 @@ for (let cle in etudiant) {
           <div class="chips"><span class="chip">DOM</span><span class="chip">function</span><span class="chip">object</span></div>
         </div>
         <div class="lesson">
-          <h3>Comprendre le DOM</h3>
-          <p>Le DOM représente le document HTML comme un arbre de nœuds. Les catégories les plus importantes sont le document, les éléments et les attributs. Cela permet à JavaScript d’accéder à n’importe quelle partie d’une page et de la modifier.</p>
-          <h3>Fonctions</h3>
-          <pre><code>function saluer(nom) {
+          <pre><code class="language-javascript">function saluer(nom) {
   return "Bonjour " + nom;
 }
 
 let message = saluer("Marie");
 console.log(message);</code></pre>
-          <h3>Objets</h3>
-          <pre><code>let etudiant = {
+          <pre><code class="language-javascript">let etudiant = {
   nom: "Ali",
   programme: "Informatique",
   session: 1
@@ -1059,9 +1118,8 @@ console.log(message);</code></pre>
 
 console.log(etudiant.nom);
 console.log(etudiant.session);</code></pre>
-          <h3>Une mise en garde importante</h3>
-          <pre><code>document.write("Texte affiché dans la page");</code></pre>
-          <div class="note"><strong>Attention</strong><code>document.write()</code> est utile pour comprendre certains exemples, mais il est généralement déconseillé dans les pages modernes, car il peut écraser le contenu du document après le chargement.</div>
+          <pre><code class="language-javascript">document.write("Texte affiché dans la page");</code></pre>
+          <div class="note"><strong>Attention</strong><code>document.write()</code> est surtout pédagogique. Dans une vraie page moderne, on préfère manipuler le DOM.</div>
         </div>
       </section>
 
@@ -1071,9 +1129,7 @@ console.log(etudiant.session);</code></pre>
           <div class="chips"><span class="chip">getElementById</span><span class="chip">innerHTML</span><span class="chip">textContent</span></div>
         </div>
         <div class="lesson">
-          <h3>Accéder aux éléments HTML</h3>
-          <p>JavaScript peut cibler des éléments avec plusieurs méthodes, par exemple <code>getElementById()</code>, <code>getElementsByTagName()</code>, <code>getElementsByClassName()</code> ou <code>querySelectorAll()</code>.</p>
-          <pre><code>&lt;h1 id="titre"&gt;Titre initial&lt;/h1&gt;
+          <pre><code class="language-html">&lt;h1 id="titre"&gt;Titre initial&lt;/h1&gt;
 &lt;button onclick="changerTitre()"&gt;Changer le titre&lt;/button&gt;
 
 &lt;script&gt;
@@ -1081,14 +1137,7 @@ function changerTitre() {
   document.getElementById("titre").textContent = "Titre modifié";
 }
 &lt;/script&gt;</code></pre>
-          <pre><code>&lt;p class="info"&gt;Premier paragraphe&lt;/p&gt;
-&lt;p class="info"&gt;Deuxième paragraphe&lt;/p&gt;
-
-&lt;script&gt;
-const paragraphes = document.getElementsByClassName("info");
-paragraphes[1].className = "info important";
-&lt;/script&gt;</code></pre>
-          <pre><code>&lt;input id="nom" type="text" placeholder="Votre nom"&gt;
+          <pre><code class="language-html">&lt;input id="nom" type="text" placeholder="Votre nom"&gt;
 &lt;button id="btn"&gt;Afficher&lt;/button&gt;
 &lt;p id="resultat"&gt;&lt;/p&gt;
 
@@ -1098,56 +1147,89 @@ document.getElementById("btn").addEventListener("click", function () {
   document.getElementById("resultat").innerHTML = "Bonjour &lt;strong&gt;" + valeur + "&lt;/strong&gt;";
 });
 &lt;/script&gt;</code></pre>
-          <div class="note"><strong>Différence importante</strong><code>textContent</code> sert surtout à modifier du texte simple, tandis que <code>innerHTML</code> permet d’insérer aussi des balises HTML.</div>
+          <div class="example"><strong>Différence</strong><code>textContent</code> modifie du texte brut, alors que <code>innerHTML</code> peut injecter des balises HTML.</div>
         </div>
       </section>
 
       <section class="section searchable" id="exercices-guides" data-title="Exercices guidés">
         <div class="section-header">
           <h2>Exercices guidés</h2>
-          <div class="chips"><span class="chip">Pratique</span><span class="chip">Laboratoire</span><span class="chip">Réinvestissement</span></div>
+          <div class="chips"><span class="chip">Pratique</span><span class="chip">Réinvestissement</span></div>
         </div>
         <div class="lesson">
           <h3>Exercice 1 — Liens externes</h3>
-          <pre><code>&lt;a href="https://www.example.com" target="_blank"&gt;Visitez Example&lt;/a&gt;</code></pre>
+          <pre><code class="language-html">&lt;a href="https://www.example.com" target="_blank"&gt;Visitez Example&lt;/a&gt;</code></pre>
           <h3>Exercice 2 — Liens internes</h3>
-          <pre><code>&lt;a href="#section1"&gt;Aller à la section 1&lt;/a&gt;
+          <pre><code class="language-html">&lt;a href="#section1"&gt;Aller à la section 1&lt;/a&gt;
 &lt;h2 id="section1"&gt;Section 1&lt;/h2&gt;</code></pre>
           <h3>Exercice 3 — Lien courriel</h3>
-          <pre><code>&lt;a href="mailto:example@example.com"&gt;Envoyer un e-mail&lt;/a&gt;</code></pre>
+          <pre><code class="language-html">&lt;a href="mailto:example@example.com"&gt;Envoyer un e-mail&lt;/a&gt;</code></pre>
           <h3>Exercice 4 — Boucle JavaScript</h3>
-          <pre><code>for (let i = 0; i &lt; 5; i++) {
+          <pre><code class="language-javascript">for (let i = 0; i < 5; i++) {
   console.log("Bienvenue dans le cours de Développement Web II");
 }</code></pre>
           <h3>Exercice 5 — Formulaire</h3>
-          <p>Construis un formulaire avec <code>name</code>, <code>action</code>, <code>method</code>, un champ texte, un champ courriel et un bouton d’envoi.</p>
+          <p>Construit un formulaire avec un nom, un courriel, un message, un choix de programme et un bouton d’envoi.</p>
         </div>
       </section>
 
       <section class="section searchable" id="mini-projets" data-title="Mini projets">
         <div class="section-header">
           <h2>Mini-projets</h2>
-          <div class="chips"><span class="chip">Projet</span><span class="chip">HTML/CSS/JS</span><span class="chip">Intégration</span></div>
+          <div class="chips"><span class="chip">Portfolio</span><span class="chip">Restaurant</span><span class="chip">Quiz</span><span class="chip">Validation</span></div>
         </div>
         <div class="lesson">
           <h3>Projet 1 — Portfolio étudiant</h3>
-          <p>Créer une page personnelle avec photo, description, compétences, projets et section contact.</p>
-          <ul>
-            <li>HTML : structure de la page</li>
-            <li>CSS : couleurs, polices, sections, cartes</li>
-            <li>JavaScript : bouton pour afficher/masquer des projets</li>
-          </ul>
+          <p>Créer une page personnelle avec photo, biographie, compétences, projets et section contact.</p>
           <h3>Projet 2 — Page de restaurant</h3>
-          <p>Construire un site vitrine avec menu, galerie, formulaire de réservation et section avis.</p>
+          <p>Concevoir un site vitrine avec galerie, menu, couleurs harmonieuses et formulaire de réservation.</p>
           <h3>Projet 3 — Quiz interactif</h3>
-          <p>Créer un quiz où l’utilisateur répond à plusieurs questions puis voit son score final.</p>
-          <pre><code>const questions = [
+          <pre><code class="language-javascript">const questions = [
   { question: "HTML signifie ?", reponse: "HyperText Markup Language" },
   { question: "CSS sert à ?", reponse: "Mettre en forme" },
   { question: "JavaScript sert à ?", reponse: "Rendre le site interactif" }
 ];</code></pre>
           <h3>Projet 4 — Formulaire validé par JavaScript</h3>
-          <p>Ajouter une vérification simple avant l’envoi : nom obligatoire, courriel valide, message non vide.</p>
+          <p>Ajouter une validation simple : nom obligatoire, courriel valide, message non vide.</p>
+        </div>
+      </section>
+
+      <section class="section searchable" id="quiz-rapide" data-title="Quiz rapide interactif">
+        <div class="section-header">
+          <h2>Quiz rapide interactif</h2>
+          <div class="chips"><span class="chip">Autoévaluation</span><span class="chip">JavaScript</span></div>
+        </div>
+        <div class="quiz">
+          <h3>Teste tes connaissances</h3>
+          <div class="quiz-question">
+            <p><strong>1.</strong> HTML signifie :</p>
+            <div class="answers">
+              <button class="answer-btn" data-correct="true">HyperText Markup Language</button>
+              <button class="answer-btn">HighText Machine Language</button>
+              <button class="answer-btn">Hyper Transfer Main Language</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question">
+            <p><strong>2.</strong> CSS sert principalement à :</p>
+            <div class="answers">
+              <button class="answer-btn">Créer une base de données</button>
+              <button class="answer-btn" data-correct="true">Mettre en forme une page Web</button>
+              <button class="answer-btn">Compiler du JavaScript</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question">
+            <p><strong>3.</strong> Quelle méthode permet d’obtenir un élément par son identifiant ?</p>
+            <div class="answers">
+              <button class="answer-btn">getElementsByClassName()</button>
+              <button class="answer-btn" data-correct="true">getElementById()</button>
+              <button class="answer-btn">queryElement()</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
         </div>
       </section>
 
@@ -1157,31 +1239,32 @@ document.getElementById("btn").addEventListener("click", function () {
           <div class="chips"><span class="chip">Synthèse</span><span class="chip">Examen</span></div>
         </div>
         <div class="lesson">
-          <h3>Ce qu’il faut maîtriser</h3>
           <ul>
-            <li>Créer la structure de base d’une page HTML.</li>
+            <li>Créer la structure complète d’une page HTML.</li>
             <li>Utiliser les balises de texte, les liens, les tableaux et les formulaires.</li>
-            <li>Appliquer du CSS avec des sélecteurs et des propriétés de style.</li>
-            <li>Comprendre les couleurs, les polices et la mise en page responsive.</li>
-            <li>Déclarer des variables en JavaScript et utiliser les conditions et les boucles.</li>
-            <li>Manipuler le DOM pour modifier une page en réaction aux actions de l’utilisateur.</li>
+            <li>Écrire des styles CSS avec sélecteurs, couleurs, polices, espacements et responsive design.</li>
+            <li>Déclarer des variables, manipuler des chaînes, utiliser des conditions et des boucles en JavaScript.</li>
+            <li>Créer des fonctions, comprendre les objets et manipuler le DOM.</li>
           </ul>
-          <div class="example"><strong>Conseil de révision</strong>Refais les exemples de code à la main et transforme-les en petits exercices personnels.</div>
+          <div class="example"><strong>Conseil</strong>Refais chaque exemple sans copier-coller, puis transforme-le en variante personnelle.</div>
         </div>
       </section>
 
       <footer class="footer">
         <p><strong>Site de cours 420-112 — Création de sites Web</strong></p>
-        <p>Cette page regroupe les notions fondamentales vues en HTML, CSS et JavaScript dans un format documentation monofichier, pratique pour GitHub Pages et pour la révision des étudiants.</p>
+        <p>Version documentation monofichier optimisée pour GitHub Pages, la révision autonome et la consultation rapide en classe.</p>
       </footer>
     </div>
   </main>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"></script>
   <script>
+    hljs.highlightAll();
+
     const menuBtn = document.getElementById('menuBtn');
     const sidebar = document.getElementById('sidebar');
     const searchInput = document.getElementById('searchInput');
-    const searchable = [...document.querySelectorAll('.searchable')];
+    const searchable = [...document.querySelectorAll('.searchable, .section')].filter(el => el.id || el.dataset.title);
     const navLinks = [...document.querySelectorAll('.nav-link')];
 
     menuBtn.addEventListener('click', () => {
@@ -1190,11 +1273,11 @@ document.getElementById("btn").addEventListener("click", function () {
 
     searchInput.addEventListener('input', () => {
       const q = searchInput.value.toLowerCase().trim();
-      searchable.forEach(section => {
-        const text = section.innerText.toLowerCase();
-        const title = (section.dataset.title || '').toLowerCase();
+      document.querySelectorAll('.section, .hero').forEach(block => {
+        const text = block.innerText.toLowerCase();
+        const title = (block.dataset.title || '').toLowerCase();
         const show = !q || text.includes(q) || title.includes(q);
-        section.classList.toggle('hidden', !show);
+        block.classList.toggle('hidden', !show);
       });
     });
 
@@ -1206,9 +1289,30 @@ document.getElementById("btn").addEventListener("click", function () {
           if (active) active.classList.add('active');
         }
       });
-    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+    }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
 
-    searchable.forEach(section => observer.observe(section));
+    document.querySelectorAll('.section').forEach(section => observer.observe(section));
+
+    document.querySelectorAll('.quiz-question').forEach(question => {
+      const feedback = question.querySelector('.quiz-feedback');
+      const buttons = question.querySelectorAll('.answer-btn');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          buttons.forEach(b => {
+            b.disabled = true;
+            if (b.dataset.correct === 'true') b.classList.add('correct');
+          });
+          if (btn.dataset.correct === 'true') {
+            feedback.textContent = 'Bonne réponse !';
+            feedback.style.color = '#42d392';
+          } else {
+            btn.classList.add('wrong');
+            feedback.textContent = 'Mauvaise réponse.';
+            feedback.style.color = '#ff8d8d';
+          }
+        });
+      });
+    });
   </script>
 </body>
 </html>
