@@ -16,7 +16,7 @@
       --border: rgba(255,255,255,0.12);
       --shadow: 0 10px 30px rgba(0,0,0,0.28);
       --radius: 18px;
-      --maxw: 1200px;
+      --maxw: 1220px;
     }
 
     * { box-sizing: border-box; }
@@ -29,16 +29,12 @@
       line-height: 1.6;
     }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
+    a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
     .layout {
       display: grid;
-      grid-template-columns: 290px 1fr;
+      grid-template-columns: 300px 1fr;
       min-height: 100vh;
     }
 
@@ -48,7 +44,7 @@
       height: 100vh;
       overflow-y: auto;
       padding: 28px 20px;
-      background: rgba(10, 15, 32, 0.9);
+      background: rgba(10, 15, 32, 0.92);
       border-right: 1px solid var(--border);
       backdrop-filter: blur(10px);
     }
@@ -63,7 +59,7 @@
     }
 
     .brand h1 {
-      font-size: 1.45rem;
+      font-size: 1.42rem;
       line-height: 1.2;
       margin: 0 0 10px;
     }
@@ -104,14 +100,8 @@
       transform: translateX(2px);
     }
 
-    .content {
-      padding: 34px;
-    }
-
-    .container {
-      max-width: var(--maxw);
-      margin: 0 auto;
-    }
+    .content { padding: 34px; }
+    .container { max-width: var(--maxw); margin: 0 auto; }
 
     .hero {
       padding: 34px;
@@ -134,14 +124,14 @@
     }
 
     .hero h2 {
-      font-size: clamp(2rem, 4vw, 3.3rem);
+      font-size: clamp(2rem, 4vw, 3.2rem);
       margin: 0 0 14px;
       line-height: 1.1;
     }
 
     .hero p {
       color: var(--muted);
-      max-width: 760px;
+      max-width: 800px;
       margin: 0 0 24px;
       font-size: 1.03rem;
     }
@@ -170,18 +160,9 @@
       box-shadow: none;
     }
 
-    .grid {
-      display: grid;
-      gap: 20px;
-    }
-
-    .grid-3 {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .grid-2 {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+    .grid { display: grid; gap: 20px; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
     .card {
       background: rgba(255,255,255,0.04);
@@ -191,35 +172,14 @@
       box-shadow: var(--shadow);
     }
 
-    .card h3, .card h4 {
-      margin-top: 0;
-      margin-bottom: 10px;
-    }
+    .card h3, .card h4 { margin-top: 0; margin-bottom: 10px; }
+    .card p, .card li { color: var(--muted); }
 
-    .card p, .card li {
-      color: var(--muted);
-    }
+    .section { margin: 34px 0; }
+    .section h2 { font-size: 1.8rem; margin-bottom: 14px; }
+    .section-intro { color: var(--muted); margin-bottom: 18px; }
 
-    .section {
-      margin: 34px 0;
-    }
-
-    .section h2 {
-      font-size: 1.8rem;
-      margin-bottom: 14px;
-    }
-
-    .section-intro {
-      color: var(--muted);
-      margin-bottom: 18px;
-    }
-
-    .week-card {
-      display: grid;
-      gap: 10px;
-    }
-
-    .week-tag {
+    .module-tag, .week-tag {
       display: inline-block;
       font-size: 0.82rem;
       color: var(--accent);
@@ -228,6 +188,7 @@
       padding: 5px 10px;
       border-radius: 999px;
       width: fit-content;
+      margin-bottom: 10px;
     }
 
     .resource-list, .simple-list {
@@ -235,12 +196,25 @@
       padding-left: 18px;
     }
 
-    .footer {
-      margin-top: 38px;
-      padding: 18px 4px 10px;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-      font-size: 0.95rem;
+    .download-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .download-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+    }
+
+    .download-item span {
+      color: var(--text);
+      font-weight: 600;
     }
 
     code.inline {
@@ -251,6 +225,14 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
 
+    .footer {
+      margin-top: 38px;
+      padding: 18px 4px 10px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+
     @media (max-width: 980px) {
       .layout { grid-template-columns: 1fr; }
       .sidebar {
@@ -259,9 +241,13 @@
         border-right: none;
         border-bottom: 1px solid var(--border);
       }
-      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
       .content { padding: 20px; }
       .hero { padding: 24px; }
+      .download-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
@@ -276,171 +262,9 @@
       <div class="nav-title">Navigation</div>
       <nav class="nav-links">
         <a href="#accueil">Accueil</a>
-        <a href="#plan">Plan du cours</a>
-        <a href="#semaines">Semaines</a>
-        <a href="#laboratoires">Laboratoires</a>
-        <a href="#devoirs">Devoirs</a>
-        <a href="#ressources">Ressources</a>
-        <a href="#pdf">PDF du cours</a>
-        <a href="#contact">Informations</a>
-      </nav>
-
-      <div class="nav-title">Liens rapides</div>
-      <nav class="nav-links">
-        <a href="docs/plan-de-cours.pdf" target="_blank">Plan de cours (PDF)</a>
-        <a href="docs/semaine-01-introduction.pdf" target="_blank">Semaine 1 (PDF)</a>
-        <a href="docs/labo-01.pdf" target="_blank">Laboratoire 1</a>
-      </nav>
-    </aside>
-
-    <main class="content">
-      <div class="container">
-        <section class="hero" id="accueil">
-          <div class="badge">Cours 420-112</div>
-          <h2>Apprendre à créer des sites web modernes</h2>
-          <p>
-            Ce site regroupe les notes de cours, les laboratoires, les devoirs, les ressources et les PDF du cours
-            <strong>Création de sites web</strong>. Il peut être publié directement sur GitHub Pages.
-          </p>
-          <div class="hero-actions">
-            <a class="btn" href="#semaines">Voir les semaines</a>
-            <a class="btn secondary" href="docs/plan-de-cours.pdf" target="_blank">Ouvrir le plan du cours</a>
-          </div>
-        </section>
-
-        <section class="section" id="plan">
-          <h2>Plan du cours</h2>
-          <p class="section-intro">Tu peux remplacer ce texte par la description officielle de ton cours, ses objectifs, ses compétences et ses modalités d’évaluation.</p>
-          <div class="grid grid-3">
-            <article class="card">
-              <h3>Objectifs</h3>
-              <ul class="simple-list">
-                <li>Comprendre la structure d’une page web.</li>
-                <li>Créer des interfaces avec HTML et CSS.</li>
-                <li>Ajouter de l’interactivité avec JavaScript.</li>
-              </ul>
-            </article>
-            <article class="card">
-              <h3>Évaluation</h3>
-              <ul class="simple-list">
-                <li>Laboratoires pratiques</li>
-                <li>Mini-projets</li>
-                <li>Travail final</li>
-              </ul>
-            </article>
-            <article class="card">
-              <h3>Technologies</h3>
-              <ul class="simple-list">
-                <li>HTML5</li>
-                <li>CSS3</li>
-                <li>JavaScript</li>
-              </ul>
-            </article>
-          </div>
-        </section>
-
-        <section class="section" id="semaines">
-          <h2>Semaines du cours</h2>
-          <p class="section-intro">Tu peux ajouter, supprimer ou renommer les semaines selon ton plan réel.</p>
-          <div class="grid grid-2">
-            <article class="card week-card">
-              <span class="week-tag">Semaine 1</span>
-              <h3>Introduction au Web</h3>
-              <p>Présentation du Web, structure d’un site, éditeurs de code, premières balises HTML.</p>
-              <a href="docs/semaine-01-introduction.pdf" target="_blank">Voir le PDF</a>
-            </article>
-            <article class="card week-card">
-              <span class="week-tag">Semaine 2</span>
-              <h3>HTML : structure et contenu</h3>
-              <p>Titres, paragraphes, liens, images, listes, tableaux et formulaires.</p>
-              <a href="docs/semaine-02-html.pdf" target="_blank">Voir le PDF</a>
-            </article>
-            <article class="card week-card">
-              <span class="week-tag">Semaine 3</span>
-              <h3>CSS : style et mise en page</h3>
-              <p>Sélecteurs, couleurs, marges, Flexbox, responsive design et organisation visuelle.</p>
-              <a href="docs/semaine-03-css.pdf" target="_blank">Voir le PDF</a>
-            </article>
-            <article class="card week-card">
-              <span class="week-tag">Semaine 4</span>
-              <h3>JavaScript : interactions</h3>
-              <p>Variables, conditions, fonctions, événements DOM et premières interactions.</p>
-              <a href="docs/semaine-04-javascript.pdf" target="_blank">Voir le PDF</a>
-            </article>
-          </div>
-        </section>
-
-        <section class="section" id="laboratoires">
-          <h2>Laboratoires</h2>
-          <div class="grid grid-2">
-            <article class="card">
-              <h3>Labo 1 — Première page HTML</h3>
-              <p>Créer une page simple avec titres, paragraphes, listes et liens.</p>
-              <a href="docs/labo-01.pdf" target="_blank">Télécharger le PDF</a>
-            </article>
-            <article class="card">
-              <h3>Labo 2 — Mise en page CSS</h3>
-              <p>Mettre en forme une page avec couleurs, typographie, boîtes et Flexbox.</p>
-              <a href="docs/labo-02.pdf" target="_blank">Télécharger le PDF</a>
-            </article>
-          </div>
-        </section>
-
-        <section class="section" id="devoirs">
-          <h2>Devoirs</h2>
-          <div class="grid grid-2">
-            <article class="card">
-              <h3>Devoir 1 — Site personnel</h3>
-              <p>Créer un mini-site présentant ton profil, tes intérêts et tes projets.</p>
-              <a href="docs/devoir-01.pdf" target="_blank">Consulter le PDF</a>
-            </article>
-            <article class="card">
-              <h3>Projet final — Site complet</h3>
-              <p>Concevoir un site web complet intégrant HTML, CSS et JavaScript.</p>
-              <a href="docs/projet-final.pdf" target="_blank">Consulter le PDF</a>
-            </article>
-          </div>
-        </section>
-
-        <section class="section" id="ressources">
-          <h2>Ressources</h2>
-          <div class="card">
-            <ul class="resource-list">
-              <li><a href="https://developer.mozilla.org/fr/" target="_blank">MDN Web Docs</a></li>
-              <li><a href="https://validator.w3.org/" target="_blank">Validateur HTML W3C</a></li>
-              <li><a href="https://jigsaw.w3.org/css-validator/" target="_blank">Validateur CSS W3C</a></li>
-              <li><a href="https://codepen.io/" target="_blank">CodePen</a></li>
-            </ul>
-          </div>
-        </section>
-
-        <section class="section" id="pdf">
-          <h2>Organisation des PDF</h2>
-          <div class="card">
-            <p>Place tes fichiers PDF dans un dossier <code class="inline">docs/</code> à la racine du dépôt. Exemple :</p>
-            <ul class="simple-list">
-              <li><code class="inline">docs/plan-de-cours.pdf</code></li>
-              <li><code class="inline">docs/semaine-01-introduction.pdf</code></li>
-              <li><code class="inline">docs/labo-01.pdf</code></li>
-              <li><code class="inline">docs/devoir-01.pdf</code></li>
-            </ul>
-          </div>
-        </section>
-
-        <section class="section" id="contact">
-          <h2>Informations</h2>
-          <div class="card">
-            <p><strong>Enseignant :</strong> Sofiane Faidi</p>
-            <p><strong>Cours :</strong> 420-112 – Création de sites web</p>
-            <p><strong>Publication :</strong> GitHub Pages</p>
-          </div>
-        </section>
-
-        <footer class="footer">
-          © 2026 — 420-112 Création de sites web • Site publié avec GitHub Pages
-        </footer>
-      </div>
-    </main>
-  </div>
-</body>
-</html>
+        <a href="#contenu">Contenu du cours</a>
+        <a href="#html-css">Bloc HTML / CSS</a>
+        <a href="#javascript">Bloc JavaScript</a>
+        <a href="#telechargements">Téléchargements</a>
+        <a href="#organisation">Organisation des fichiers</a>
+        <a href="#infos">Informations</a
