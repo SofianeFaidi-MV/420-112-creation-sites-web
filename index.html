@@ -1,605 +1,160 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>420-112 – Création de sites web</title>
-  <style>
-    :root {
-      --bg: #0b0f17;
-      --bg-soft: #121826;
-      --panel: #151b2d;
-      --panel-2: #1b2338;
-      --text: #eef2ff;
-      --muted: #b7c0dd;
-      --line: rgba(255,255,255,0.1);
-      --blue: #5aa9ff;
-      --green: #7ee787;
-      --yellow: #f2cc60;
-      --pink: #ff6aa9;
-      --shadow: 0 16px 40px rgba(0,0,0,0.35);
-      --radius: 18px;
-    }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #0a0f17 0%, #101727 100%);
-      color: var(--text);
-      line-height: 1.65;
-    }
+<meta charset="UTF-8">
+<title>420-112 – Création de sites web</title>
 
-    a { color: var(--blue); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+<style>
 
-    .layout {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      min-height: 100vh;
-    }
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
+}
 
-    .sidebar {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-      background: rgba(13, 18, 29, 0.96);
-      border-right: 1px solid var(--line);
-      padding: 24px 18px;
-    }
+.container{
+display:flex;
+}
 
-    .brand {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      margin-bottom: 18px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid var(--line);
-    }
+/* sidebar */
 
-    .brand-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, rgba(90,169,255,0.25), rgba(126,231,135,0.15));
-      color: var(--blue);
-      font-weight: 800;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
+.sidebar{
+width:260px;
+height:100vh;
+background:#020617;
+padding:20px;
+position:fixed;
+}
 
-    .brand h1 {
-      margin: 0;
-      font-size: 1.05rem;
-      line-height: 1.35;
-      font-weight: 700;
-    }
+.sidebar a{
+display:block;
+color:white;
+padding:8px;
+text-decoration:none;
+}
 
-    .search {
-      width: 100%;
-      margin: 14px 0 22px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
+.sidebar a:hover{
+background:#1e293b;
+border-radius:6px;
+}
 
-    .menu-title {
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 0.75rem;
-      margin: 18px 0 10px;
-    }
+/* contenu */
 
-    .menu, .submenu {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+.content{
+margin-left:280px;
+padding:40px;
+max-width:900px;
+}
 
-    .menu li a, .submenu li a {
-      display: block;
-      padding: 10px 12px;
-      border-radius: 12px;
-      color: var(--text);
-      transition: 0.2s ease;
-    }
+/* code */
 
-    .menu li a:hover, .submenu li a:hover {
-      background: rgba(255,255,255,0.05);
-      text-decoration: none;
-    }
+pre{
+background:#1e293b;
+padding:15px;
+border-radius:10px;
+}
 
-    .submenu {
-      margin-left: 16px;
-      border-left: 1px solid rgba(255,255,255,0.08);
-      padding-left: 10px;
-    }
+</style>
 
-    .active-link {
-      background: rgba(90,169,255,0.12);
-      border: 1px solid rgba(90,169,255,0.18);
-    }
-
-    .content {
-      padding: 28px 36px 50px;
-      max-width: 1180px;
-    }
-
-    .breadcrumb {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-bottom: 18px;
-    }
-
-    .hero {
-      padding: 26px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, rgba(90,169,255,0.12), rgba(126,231,135,0.06));
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      margin-bottom: 28px;
-    }
-
-    .hero h2 {
-      margin: 0 0 10px;
-      font-size: 2rem;
-      line-height: 1.15;
-    }
-
-    .hero p {
-      margin: 0;
-      color: var(--muted);
-      max-width: 820px;
-    }
-
-    .notice {
-      margin-top: 16px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--line);
-      color: var(--muted);
-    }
-
-    .section {
-      margin: 36px 0;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .section h3 {
-      margin: 0 0 10px;
-      font-size: 1.9rem;
-    }
-
-    .section p {
-      color: var(--muted);
-      max-width: 920px;
-    }
-
-    .lesson-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 18px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: rgba(90,169,255,0.12);
-      border: 1px solid rgba(90,169,255,0.18);
-      color: var(--blue);
-      font-size: 0.82rem;
-      margin-bottom: 10px;
-    }
-
-    .code-block {
-      margin: 16px 0;
-      padding: 18px 18px;
-      border-radius: 14px;
-      background: #1b1d23;
-      border: 1px solid rgba(255,255,255,0.08);
-      overflow-x: auto;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 0.98rem;
-      color: #f3f4f6;
-      white-space: pre-wrap;
-    }
-
-    .kw { color: #6cd4ff; font-weight: 700; }
-    .str { color: #f2cc60; }
-    .acc { color: #ff6aa9; font-weight: 700; }
-    .ok { color: var(--green); }
-
-    .exercise {
-      margin: 28px 0;
-      padding: 22px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-
-    .exercise h4 {
-      margin: 0 0 10px;
-      font-size: 1.75rem;
-      line-height: 1.2;
-    }
-
-    .exercise .lead {
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
-
-    .result {
-      margin-top: 10px;
-      color: var(--muted);
-    }
-
-    .inline-code {
-      display: inline-block;
-      padding: 1px 8px;
-      border-radius: 8px;
-      background: rgba(126,231,135,0.1);
-      border: 1px solid rgba(126,231,135,0.14);
-      color: var(--green);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    }
-
-    .checklist {
-      margin: 14px 0 0;
-      padding-left: 18px;
-      color: var(--muted);
-    }
-
-    .mini-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .mini-nav a {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--line);
-      color: var(--text);
-    }
-
-    .mini-nav a:hover {
-      text-decoration: none;
-      background: rgba(255,255,255,0.07);
-    }
-
-    @media (max-width: 980px) {
-      .layout { grid-template-columns: 1fr; }
-      .sidebar {
-        position: relative;
-        height: auto;
-        border-right: none;
-        border-bottom: 1px solid var(--line);
-      }
-      .content { padding: 20px; }
-      .lesson-grid { grid-template-columns: 1fr; }
-    }
-  </style>
 </head>
+
 <body>
-  <div class="layout">
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-icon">JS</div>
-        <div>
-          <h1>Création de sites web<br>Chapitre JavaScript</h1>
-        </div>
-      </div>
 
-      <input class="search" type="text" placeholder="Search..." />
+<div class="container">
 
-      <div class="menu-title">Navigation</div>
-      <ul class="menu">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#intro">Intro</a></li>
-        <li><a href="#strings" class="active-link">Strings</a></li>
-        <li><a href="#html-base">HTML</a></li>
-      </ul>
+<div class="sidebar">
 
-      <div class="menu-title">Strings</div>
-      <ul class="submenu">
-        <li><a href="#definition">C’est quoi ?</a></li>
-        <li><a href="#utilisation">Utilisation simple</a></li>
-        <li><a href="#methodes">Méthodes de String</a></li>
-        <li><a href="#concat">Concaténation</a></li>
-        <li><a href="#template">Template literals</a></li>
-        <li><a href="#exercices">Exercices</a></li>
-      </ul>
+<h2>Création de sites web</h2>
 
-      <div class="menu-title">HTML</div>
-      <ul class="submenu">
-        <li><a href="#html-base">Structure de base</a></li>
-        <li><a href="#html-titres">Titres et paragraphes</a></li>
-        <li><a href="#html-listes">Listes</a></li>
-        <li><a href="#html-images">Images et liens</a></li>
-        <li><a href="#html-exercices">Exercices HTML</a></li>
-      </ul>
-    </aside>
+<h3>Navigation</h3>
 
-    <main class="content">
-      <div class="breadcrumb">420-112 &gt; JavaScript &gt; Les chaînes de caractères</div>
+<a href="#home">Home</a>
+<a href="#html">HTML</a>
+<a href="#css">CSS</a>
+<a href="#javascript">JavaScript</a>
 
-      <section class="hero" id="home">
-        <h2>LES CHAÎNES DE CARACTÈRES</h2>
-        <p>
-          Cette page montre le format à utiliser pour ton site : le contenu du cours est directement intégré dans le HTML,
-          avec un titre clair, des explications, des exemples de code et des exercices visibles sans ouvrir de PDF.
-        </p>
-      </section>
+</div>
 
-      <section class="section" id="intro">
-        <h3>Chapitre — JavaScript</h3>
-        <p>
-          En JavaScript, une chaîne de caractères représente un texte. Elle peut contenir des lettres, des chiffres,
-          des espaces et des symboles. Les chaînes sont utilisées pour afficher des messages, construire du contenu HTML,
-          manipuler des formulaires et produire des réponses visibles à l’écran.
-        </p>
-      </section>
 
-      <section class="section" id="strings">
-        <h3 id="definition">Les strings, c’est quoi ?</h3>
-        <p>
-          Une <strong>chaîne de caractères</strong> est une valeur textuelle. En JavaScript, on peut l’écrire avec des guillemets doubles,
-          des guillemets simples ou des accents graves. Une chaîne peut être stockée dans une variable puis affichée,
-          modifiée ou combinée avec d’autres valeurs.
-        </p>
+<div class="content">
 
-        <p>Exemple :</p>
-        <div class="code-block"><span class="kw">let</span> message <span class="acc">=</span> <span class="str">"Bonjour !"</span>;</div>
-      </section>
+<section id="home">
 
-      <section class="section" id="utilisation">
-        <h3>Utilisation simple</h3>
-        <p>Créer une chaîne et l’afficher dans la console ou dans la page.</p>
+<h1>Chapitre — JavaScript</h1>
 
-        <div class="code-block"><span class="kw">let</span> nom <span class="acc">=</span> <span class="str">"Alice"</span>;
+<p>
+JavaScript permet d’ajouter de l’interactivité dans les pages Web.
+</p>
 
-console.log(nom);</div>
+</section>
 
-        <p>Créer une phrase plus longue :</p>
-        <div class="code-block"><span class="kw">let</span> phrase <span class="acc">=</span> <span class="str">"J’apprends JavaScript dans mon cours de création de sites web."</span>;
-console.log(phrase);</div>
-      </section>
 
-      <section class="section" id="methodes">
-        <h3>Méthodes utiles de String</h3>
-        <p>
-          Une chaîne possède plusieurs méthodes pratiques pour lire ou transformer du texte.
-        </p>
+<section id="javascript">
 
-        <div class="lesson-grid">
-          <article class="card">
-            <div class="tag">length</div>
-            <h4>Compter les caractères</h4>
-            <div class="code-block"><span class="kw">let</span> texte <span class="acc">=</span> <span class="str">"JavaScript"</span>;
-console.log(texte.length);</div>
-          </article>
+<h1>Les Strings</h1>
 
-          <article class="card">
-            <div class="tag">toUpperCase()</div>
-            <h4>Mettre en majuscules</h4>
-            <div class="code-block"><span class="kw">let</span> texte <span class="acc">=</span> <span class="str">"bonjour"</span>;
-console.log(texte.toUpperCase());</div>
-          </article>
+<p>
+Une chaîne de caractères représente un texte.
+</p>
 
-          <article class="card">
-            <div class="tag">toLowerCase()</div>
-            <h4>Mettre en minuscules</h4>
-            <div class="code-block"><span class="kw">let</span> texte <span class="acc">=</span> <span class="str">"BONJOUR"</span>;
-console.log(texte.toLowerCase());</div>
-          </article>
+<h2>Exemple</h2>
 
-          <article class="card">
-            <div class="tag">trim()</div>
-            <h4>Enlever les espaces inutiles</h4>
-            <div class="code-block"><span class="kw">let</span> texte <span class="acc">=</span> <span class="str">"   salut   "</span>;
-console.log(texte.trim());</div>
-          </article>
-        </div>
-      </section>
+<pre>
+let message = "Bonjour !";
+</pre>
 
-      <section class="section" id="concat">
-        <h3>Concaténation</h3>
-        <p>
-          La concaténation consiste à assembler plusieurs morceaux de texte pour former une seule phrase.
-          On peut utiliser l’opérateur <span class="inline-code">+</span>.
-        </p>
+<h2>Utilisation simple</h2>
 
-        <div class="code-block"><span class="kw">let</span> prenom <span class="acc">=</span> <span class="str">"Sofia"</span>;
-<span class="kw">let</span> ville <span class="acc">=</span> <span class="str">"Montréal"</span>;
+<pre>
+let nom = "Alice";
 
-<span class="kw">let</span> resultat <span class="acc">=</span> <span class="str">"Bonjour, je m’appelle "</span> + prenom + <span class="str">" et j’habite à "</span> + ville + <span class="str">"."</span>;
-console.log(resultat);</div>
+console.log(nom);
+</pre>
 
-        <div class="result">Résultat attendu : <span class="inline-code">Bonjour, je m’appelle Sofia et j’habite à Montréal.</span></div>
-      </section>
+</section>
 
-      <section class="section" id="template">
-        <h3>Template literals</h3>
-        <p>
-          Une autre façon moderne d’insérer des variables dans une phrase consiste à utiliser les accents graves
-          et la syntaxe <span class="inline-code">${variable}</span>.
-        </p>
 
-        <div class="code-block"><span class="kw">let</span> produit <span class="acc">=</span> <span class="str">"Clavier"</span>;
-<span class="kw">let</span> prix <span class="acc">=</span> 24.99;
+<section id="html">
 
-<span class="kw">let</span> message <span class="acc">=</span> <span class="str">`Le produit ${produit} coûte ${prix}$`</span>;
-console.log(message);</div>
-      </section>
+<h1>HTML</h1>
 
-      <section class="section" id="exercices">
-        <h3>Exercices</h3>
+<p>
+HTML sert à structurer une page Web.
+</p>
 
-        <article class="exercise">
-          <h4>🧪 Exo 1 — Déclarer une chaîne</h4>
-          <div class="lead">Déclare une variable appelée <span class="inline-code">cours</span> contenant le texte <strong>Création de sites web</strong>, puis affiche-la.</div>
-          <div class="code-block"><span class="kw">let</span> cours <span class="acc">=</span> <span class="str">"Création de sites web"</span>;
-console.log(cours);</div>
-        </article>
+<pre>
+<h1>Bonjour</h1>
+<p>Bienvenue</p>
+</pre>
 
-        <article class="exercise">
-          <h4>🧪 Exo 2 — Longueur d’une chaîne</h4>
-          <div class="lead">Crée une variable <span class="inline-code">mot</span> contenant <strong>JavaScript</strong> et affiche sa longueur avec <span class="inline-code">length</span>.</div>
-          <div class="code-block"><span class="kw">let</span> mot <span class="acc">=</span> <span class="str">"JavaScript"</span>;
-console.log(mot.length);</div>
-          <div class="result">Résultat attendu : <span class="inline-code">10</span></div>
-        </article>
+</section>
 
-        <article class="exercise">
-          <h4>🧪 Exo 3 — Mettre en majuscules</h4>
-          <div class="lead">Transforme le texte <strong>bonjour les étudiants</strong> en majuscules.</div>
-          <div class="code-block"><span class="kw">let</span> texte <span class="acc">=</span> <span class="str">"bonjour les étudiants"</span>;
-console.log(texte.toUpperCase());</div>
-        </article>
 
-        <article class="exercise">
-          <h4>🧪 Exo 4 — Concaténation simple</h4>
-          <div class="lead">Déclare les variables suivantes et affiche une phrase complète.</div>
-          <div class="code-block"><span class="kw">let</span> nomProduit <span class="acc">=</span> <span class="str">"Clavier"</span>;
-<span class="kw">let</span> quantite <span class="acc">=</span> 5;
-<span class="kw">let</span> prixUnitaire <span class="acc">=</span> 24.99;
+<section id="css">
 
-<span class="kw">let</span> message <span class="acc">=</span> quantite + <span class="str">" "</span> + nomProduit + <span class="str">" à "</span> + prixUnitaire + <span class="str">"$ l’unité"</span>;
-console.log(message);</div>
-          <div class="result">Résultat attendu : <span class="inline-code">5 Clavier à 24.99$ l’unité</span></div>
-        </article>
+<h1>CSS</h1>
 
-        <article class="exercise">
-          <h4>🧪 Exo 5 — Template literal</h4>
-          <div class="lead">Réécris l’exercice précédent avec un template literal.</div>
-          <div class="code-block"><span class="kw">let</span> message <span class="acc">=</span> <span class="str">`${quantite} ${nomProduit} à ${prixUnitaire}$ l’unité`</span>;
-console.log(message);</div>
-        </article>
-      </section>
+<p>
+CSS permet de styliser la page.
+</p>
 
-      <section class="section" id="html-base">
-        <h3>INTRODUCTION À HTML</h3>
-        <p>
-          HTML sert à organiser le contenu d’une page Web. C’est avec HTML qu’on crée les titres, les paragraphes,
-          les listes, les images, les liens et la structure générale du document.
-        </p>
-      </section>
+<pre>
+body{
+background:black;
+color:white;
+}
+</pre>
 
-      <section class="section" id="html-titres">
-        <h3>Structure de base et texte</h3>
-        <p>
-          Une page HTML commence généralement avec <span class="inline-code">&lt;!DOCTYPE html&gt;</span>, puis contient
-          les balises <span class="inline-code">html</span>, <span class="inline-code">head</span> et <span class="inline-code">body</span>.
-          Dans le corps de la page, on place ensuite les titres et les paragraphes.
-        </p>
+</section>
 
-        <div class="code-block">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8" /&gt;
-  &lt;title&gt;Ma première page&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;h1&gt;Bienvenue&lt;/h1&gt;
-  &lt;p&gt;Ceci est mon premier paragraphe.&lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;</div>
-      </section>
 
-      <section class="section" id="html-listes">
-        <h3>Listes</h3>
-        <p>
-          Les listes permettent d’afficher plusieurs éléments liés entre eux. On utilise
-          <span class="inline-code">ul</span> pour une liste non ordonnée et <span class="inline-code">ol</span>
-          pour une liste ordonnée.
-        </p>
+</div>
 
-        <div class="lesson-grid">
-          <article class="card">
-            <div class="tag">Liste à puces</div>
-            <div class="code-block">&lt;ul&gt;
-  &lt;li&gt;HTML&lt;/li&gt;
-  &lt;li&gt;CSS&lt;/li&gt;
-  &lt;li&gt;JavaScript&lt;/li&gt;
-&lt;/ul&gt;</div>
-          </article>
+</div>
 
-          <article class="card">
-            <div class="tag">Liste numérotée</div>
-            <div class="code-block">&lt;ol&gt;
-  &lt;li&gt;Ouvrir VS Code&lt;/li&gt;
-  &lt;li&gt;Créer un fichier index.html&lt;/li&gt;
-  &lt;li&gt;Écrire le code HTML&lt;/li&gt;
-&lt;/ol&gt;</div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section" id="html-images">
-        <h3>Images et liens</h3>
-        <p>
-          Une image se place avec la balise <span class="inline-code">img</span> et un lien se crée avec la balise
-          <span class="inline-code">a</span>. Ces deux éléments sont essentiels pour rendre une page utile et navigable.
-        </p>
-
-        <div class="code-block">&lt;img src="image.jpg" alt="Description de l'image" width="250" /&gt;
-
-&lt;a href="https://developer.mozilla.org/fr/"&gt;Consulter MDN&lt;/a&gt;</div>
-      </section>
-
-      <section class="section" id="html-exercices">
-        <h3>Exercices HTML</h3>
-
-        <article class="exercise">
-          <h4>🧱 Exo 1 — Première page HTML</h4>
-          <div class="lead">Crée une page avec un titre principal, un sous-titre et deux paragraphes de présentation.</div>
-          <div class="code-block">&lt;h1&gt;Mon site Web&lt;/h1&gt;
-&lt;h2&gt;Présentation&lt;/h2&gt;
-&lt;p&gt;Je découvre HTML.&lt;/p&gt;
-&lt;p&gt;Je vais ensuite apprendre CSS et JavaScript.&lt;/p&gt;</div>
-        </article>
-
-        <article class="exercise">
-          <h4>🧱 Exo 2 — Liste de technologies</h4>
-          <div class="lead">Crée une liste à puces contenant trois technologies du Web.</div>
-          <div class="code-block">&lt;ul&gt;
-  &lt;li&gt;HTML&lt;/li&gt;
-  &lt;li&gt;CSS&lt;/li&gt;
-  &lt;li&gt;JavaScript&lt;/li&gt;
-&lt;/ul&gt;</div>
-        </article>
-
-        <article class="exercise">
-          <h4>🧱 Exo 3 — Image et lien</h4>
-          <div class="lead">Ajoute une image et un lien vers un site d’apprentissage du Web.</div>
-          <div class="code-block">&lt;img src="html.png" alt="Logo HTML" width="160" /&gt;
-&lt;a href="https://developer.mozilla.org/fr/"&gt;Apprendre le Web&lt;/a&gt;</div>
-        </article>
-      </section>
-    </main>
-  </div>
 </body>
+
 </html>
