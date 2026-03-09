@@ -320,7 +320,11 @@
         <li><a href="#home">Home</a></li>
         <li><a href="#html-css">HTML / CSS</a></li>
         <li><a href="#liens">Liens</a></li>
+        <li><a href="#tableaux">Tableaux</a></li>
         <li><a href="#formulaires">Formulaires</a></li>
+        <li><a href="#couleurs">Couleurs</a></li>
+        <li><a href="#media">Audio / Vidéo</a></li>
+        <li><a href="#responsive">Responsive</a></li>
         <li><a href="#javascript">JavaScript</a></li>
         <li><a href="#dom">DOM</a></li>
         <li><a href="#exercices">Exercices</a></li>
@@ -366,14 +370,15 @@
         <h3>HTML / CSS — notions essentielles</h3>
         <p>
           Le cours couvre la structure d’une page HTML, les liens hypertextes, les polices, les couleurs et images de fond,
-          les formulaires, ainsi que les éléments multimédias <span class="inline-code">audio</span> et <span class="inline-code">video</span>. Les liens internes, externes et les ancres font partie des exercices proposés, de même que les formulaires et le responsive design. fileciteturn1file1L1-L18 fileciteturn1file12L11-L20 fileciteturn1file14L3-L16 fileciteturn1file19L8-L18
+          les formulaires, ainsi que les éléments multimédias <span class="inline-code">audio</span> et <span class="inline-code">video</span>.
+          Les tableaux et la réactivité des pages font aussi partie du parcours.
         </p>
 
         <div class="lesson-grid">
           <article class="card" id="liens">
             <div class="tag">Séance — Liens</div>
             <h4>Liens hypertextes</h4>
-            <p>Les exercices sur les liens demandent de créer des liens relatifs, des liens absolus, des ancres internes et des liens <span class="inline-code">mailto:</span>. fileciteturn1file1L1-L18 fileciteturn1file16L51-L60</p>
+            <p>Créer des liens relatifs, absolus, des ancres internes et des liens <span class="inline-code">mailto:</span>.</p>
             <div class="code-block">&lt;nav&gt;
   &lt;a href="#introduction"&gt;Introduction&lt;/a&gt;
   &lt;a href="#services"&gt;Services&lt;/a&gt;
@@ -384,12 +389,66 @@
           <article class="card" id="formulaires">
             <div class="tag">Séance — Formulaires</div>
             <h4>Formulaires</h4>
-            <p>Le chapitre sur les formulaires insiste sur les zones de saisie, les éléments de sélection et les boutons pour permettre l’interaction entre l’internaute et le site. fileciteturn1file14L3-L16</p>
+            <p>Créer des zones de saisie, des listes, des cases à cocher et des boutons d’envoi.</p>
             <div class="code-block">&lt;form&gt;
   &lt;label for="nom"&gt;Nom&lt;/label&gt;
   &lt;input id="nom" type="text" /&gt;
   &lt;button type="submit"&gt;Envoyer&lt;/button&gt;
 &lt;/form&gt;</div>
+          </article>
+
+          <article class="card" id="tableaux">
+            <div class="tag">Séance — Tableaux</div>
+            <h4>Tableaux HTML</h4>
+            <p>Structurer un tableau avec des rangées, des cellules d’en-tête et des cellules de données.</p>
+            <div class="code-block">&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Nom&lt;/th&gt;
+    &lt;th&gt;Note&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Sara&lt;/td&gt;
+    &lt;td&gt;92&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</div>
+          </article>
+
+          <article class="card" id="couleurs">
+            <div class="tag">Séance — Couleurs</div>
+            <h4>Couleurs et arrière-plans</h4>
+            <p>Appliquer des couleurs, améliorer le contraste et utiliser des images de fond de manière lisible.</p>
+            <div class="code-block">body {
+  background-color: #0f172a;
+  color: white;
+  background-image: url("fond.jpg");
+  background-size: cover;
+}</div>
+          </article>
+
+          <article class="card" id="media">
+            <div class="tag">Séance — Audio / Vidéo</div>
+            <h4>Médias HTML5</h4>
+            <p>Intégrer du son et de la vidéo dans une page Web avec des contrôles de lecture.</p>
+            <div class="code-block">&lt;audio controls&gt;
+  &lt;source src="audio.mp3" type="audio/mpeg" /&gt;
+&lt;/audio&gt;
+
+&lt;video controls width="420"&gt;
+  &lt;source src="video.mp4" type="video/mp4" /&gt;
+&lt;/video&gt;</div>
+          </article>
+
+          <article class="card" id="responsive">
+            <div class="tag">Séance — Responsive</div>
+            <h4>Réactivité</h4>
+            <p>Adapter l’affichage d’une page aux petits écrans avec le viewport, Flexbox et les media queries.</p>
+            <div class="code-block">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+
+@media (max-width: 768px) {
+  .menu {
+    flex-direction: column;
+  }
+}</div>
           </article>
         </div>
       </section>
@@ -444,12 +503,12 @@ titre.textContent <span class="acc">=</span> <span class="str">"Bienvenue dans l
       <section class="section" id="exercices">
         <h3>Exercices intégrés dans la page</h3>
         <p>
-          Voici des exercices affichés directement dans le site, avec le style “notes + exercice + résultat attendu”. Ils sont inspirés de tes fichiers sur les liens, les boucles et le DOM. fileciteturn1file16L1-L15 fileciteturn1file3L11-L14 fileciteturn1file17L15-L19
+          Voici des exercices affichés directement dans le site, avec le style “notes + exercice + résultat attendu”.
         </p>
 
         <article class="exercise" id="exo-liens">
           <h4>🔗 Exo 1 – Liens internes avec ancres</h4>
-          <div class="lead">Crée une page HTML avec trois sections différentes : <strong>Introduction</strong>, <strong>Services</strong> et <strong>Contact</strong>. Ajoute une barre de navigation qui permet d’aller à chaque section. Cet exercice reprend les consignes de navigation interne et d’ancres du fichier sur les liens. fileciteturn1file1L1-L11 fileciteturn1file16L51-L60</div>
+          <div class="lead">Crée une page HTML avec trois sections différentes : <strong>Introduction</strong>, <strong>Services</strong> et <strong>Contact</strong>. Ajoute une barre de navigation qui permet d’aller à chaque section.</div>
           <div class="code-block">&lt;nav&gt;
   &lt;a href="#introduction"&gt;Introduction&lt;/a&gt;
   &lt;a href="#services"&gt;Services&lt;/a&gt;
@@ -460,16 +519,42 @@ titre.textContent <span class="acc">=</span> <span class="str">"Bienvenue dans l
 &lt;section id="services"&gt;...&lt;/section&gt;
 &lt;section id="contact"&gt;...&lt;/section&gt;</div>
           <div class="result">Résultat attendu : les liens du menu font défiler la page vers la bonne section.</div>
-          <ul class="checklist">
-            <li>utiliser <span class="inline-code">id</span> sur chaque section</li>
-            <li>utiliser <span class="inline-code">href="#nom-section"</span></li>
-            <li>tester chaque lien</li>
-          </ul>
+        </article>
+
+        <article class="exercise" id="exo-tableaux">
+          <h4>📊 Exo 2 – Tableau de notes</h4>
+          <div class="lead">Crée un tableau HTML qui affiche le nom de trois étudiants et leur note finale.</div>
+          <div class="code-block">&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Étudiant&lt;/th&gt;
+    &lt;th&gt;Note&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Adam&lt;/td&gt;
+    &lt;td&gt;88&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</div>
+          <div class="result">Résultat attendu : un tableau lisible avec une ligne d’en-tête et des données.</div>
+        </article>
+
+        <article class="exercise" id="exo-formulaires">
+          <h4>📝 Exo 3 – Formulaire de contact</h4>
+          <div class="lead">Crée un formulaire avec un champ nom, un champ courriel et un bouton d’envoi.</div>
+          <div class="code-block">&lt;form&gt;
+  &lt;label for="nom"&gt;Nom&lt;/label&gt;
+  &lt;input id="nom" type="text" /&gt;
+
+  &lt;label for="courriel"&gt;Courriel&lt;/label&gt;
+  &lt;input id="courriel" type="email" /&gt;
+
+  &lt;button type="submit"&gt;Envoyer&lt;/button&gt;
+&lt;/form&gt;</div>
+          <div class="result">Résultat attendu : le formulaire affiche deux champs et un bouton.</div>
         </article>
 
         <article class="exercise" id="exo-concat">
-          <h4>🧪 Exo 2 – Concaténation de chaînes</h4>
-          <div class="lead">Déclare les variables suivantes et affiche une phrase sur une seule ligne avec concaténation, dans le style de l’exemple que tu as montré.</div>
+          <h4>🧪 Exo 4 – Concaténation de chaînes</h4>
+          <div class="lead">Déclare les variables suivantes et affiche une phrase sur une seule ligne avec concaténation.</div>
           <div class="code-block"><span class="kw">let</span> nomProduit <span class="acc">=</span> <span class="str">"Clavier"</span>;
 <span class="kw">let</span> quantite <span class="acc">=</span> 5;
 <span class="kw">let</span> prixUnitaire <span class="acc">=</span> 24.99;
@@ -479,8 +564,8 @@ titre.textContent <span class="acc">=</span> <span class="str">"Bienvenue dans l
         </article>
 
         <article class="exercise" id="exo-boucles">
-          <h4>🔁 Exo 3 – Répéter un message avec trois boucles</h4>
-          <div class="lead">En utilisant <span class="inline-code">for</span>, <span class="inline-code">while</span> et <span class="inline-code">do...while</span>, fais afficher cinq fois le message : <em>J’aime faire de la programmation en JavaScript.</em> Cet exercice correspond à l’activité proposée dans le chapitre sur les boucles. fileciteturn1file3L11-L14</div>
+          <h4>🔁 Exo 5 – Répéter un message avec une boucle</h4>
+          <div class="lead">Avec une boucle <span class="inline-code">for</span>, affiche cinq fois : <em>J’aime faire de la programmation en JavaScript.</em></div>
           <div class="code-block"><span class="kw">for</span> (<span class="kw">let</span> i <span class="acc">=</span> 1; i &lt;= 5; i++) {
   console.log(<span class="str">"J’aime faire de la programmation en JavaScript."</span>);
 }</div>
@@ -488,11 +573,15 @@ titre.textContent <span class="acc">=</span> <span class="str">"Bienvenue dans l
         </article>
 
         <article class="exercise" id="exo-dom">
-          <h4>🧩 Exo 4 – DOM et contenu d’un élément</h4>
-          <div class="lead">Réponds à une question de révision tirée du chapitre DOM : que retourne la propriété <span class="inline-code">links</span> de l’objet <span class="inline-code">document</span> ? Le document indique qu’il s’agit d’une collection de tous les liens contenus dans la page. fileciteturn1file17L15-L19</div>
-          <div class="code-block"><span class="kw">const</span> tousLesLiens <span class="acc">=</span> document.links;
-console.log(tousLesLiens.length);</div>
-          <div class="result">Réponse attendue : une collection de tous les liens présents dans la page Web. fileciteturn1file17L15-L19</div>
+          <h4>🧩 Exo 6 – Modifier un titre avec le DOM</h4>
+          <div class="lead">Sélectionne un titre avec <span class="inline-code">getElementById()</span> et remplace son contenu.</div>
+          <div class="code-block">&lt;h1 id="titre"&gt;Ancien titre&lt;/h1&gt;
+
+&lt;script&gt;
+const titre = document.getElementById("titre");
+titre.textContent = "Bienvenue dans le cours";
+&lt;/script&gt;</div>
+          <div class="result">Résultat attendu : le texte du titre change dans la page.</div>
         </article>
       </section>
     </main>
